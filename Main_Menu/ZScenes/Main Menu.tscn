@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://bnjbsc5jiblep"]
+
+[ext_resource type="Script" uid="uid://cv17shqaueidw" path="res://ZombieCafe/ZScenes/main_menu.gd" id="1_6ty6p"]
+[ext_resource type="Texture2D" uid="uid://0ykkihwltn6h" path="res://ZombieCafe/Assets/Backgrounds/Clouds/Clouds 1/1.png" id="2_d3u7a"]
+[ext_resource type="Texture2D" uid="uid://cfr76200gmp7s" path="res://ZombieCafe/Assets/Backgrounds/Clouds/Clouds 2/3.png" id="3_hcmdg"]
+[ext_resource type="Texture2D" uid="uid://bsgpw12mdvtbh" path="res://ZombieCafe/Assets/Backgrounds/Clouds/Clouds 5/3.png" id="4_j10t7"]
+[ext_resource type="Script" uid="uid://c5h5pav0wxd64" path="res://ZombieCafe/ZScenes/menu_options.gd" id="5_d3u7a"]
+[ext_resource type="AudioStream" uid="uid://d05hs1v4fu13g" path="res://ZombieCafe/Assets/Sounds/Main Menu Music.mp3" id="6_hcmdg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pebhl"]
+texture = ExtResource("2_d3u7a")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uy25a"]
+texture = ExtResource("3_hcmdg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bncpf"]
+texture = ExtResource("4_j10t7")
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ty6p")
+
+[node name="BackgroundSky" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_pebhl")
+
+[node name="BackgroundClouds" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_uy25a")
+
+[node name="MovingClouds" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -1154.0
+offset_right = -2.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_bncpf")
+
+[node name="MenuOptions" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 400.0
+offset_top = 200.0
+offset_right = 750.0
+offset_bottom = 550.0
+theme_override_constants/v_separation = 25
+script = ExtResource("5_d3u7a")
+metadata/_edit_use_anchors_ = true
+
+[node name="StartGame" type="Button" parent="MenuOptions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start Game"
+
+[node name="Settings" type="Button" parent="MenuOptions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Settings"
+
+[node name="Credits" type="Button" parent="MenuOptions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Credits"
+
+[node name="Quit" type="Button" parent="MenuOptions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit"
+
+[node name="Background Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_hcmdg")
+autoplay = true
+parameters/looping = true
+
+[connection signal="pressed" from="MenuOptions/StartGame" to="MenuOptions" method="_on_start_game_pressed"]
+[connection signal="pressed" from="MenuOptions/Settings" to="MenuOptions" method="_on_settings_pressed"]
+[connection signal="pressed" from="MenuOptions/Quit" to="MenuOptions" method="_on_quit_pressed"]
