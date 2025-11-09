@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://c721ymlddw8ur"]
+
+[ext_resource type="Script" uid="uid://d01lgegalsfxw" path="res://ZombieCafe/ZScenes/settings_menu.gd" id="1_247gu"]
+[ext_resource type="Texture2D" uid="uid://dxhlieti23i2s" path="res://ZombieCafe/Assets/Backgrounds/Clouds/Clouds 4/1.png" id="1_soi2k"]
+[ext_resource type="AudioStream" uid="uid://dgp16p668ijv7" path="res://ZombieCafe/Assets/Sounds/Settings Menu Music.mp3" id="3_ctw4d"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_247gu"]
+texture = ExtResource("1_soi2k")
+
+[node name="Settings Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_247gu")
+
+[node name="Settings_Background" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_247gu")
+
+[node name="Settings Controls" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 1.0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 750.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/v_separation = 25
+
+[node name="Volume Settings" type="Container" parent="Settings Controls"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Settings Controls/Volume Settings"]
+custom_minimum_size = Vector2(350, 80)
+layout_mode = 2
+size_flags_vertical = 8
+text = "								  
+								   Volume"
+
+[node name="Volume Slider" type="ProgressBar" parent="Settings Controls/Volume Settings"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+max_value = 500.0
+
+[node name="Volume Slider2" type="HSlider" parent="Settings Controls/Volume Settings"]
+visibility_layer = 0
+custom_minimum_size = Vector2(350, 25)
+layout_mode = 2
+max_value = 500.0
+ticks_position = 2
+
+[node name="Button" type="Button" parent="Settings Controls"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Settings Button"
+
+[node name="Back to Menu" type="Button" parent="Settings Controls"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Back To Main
+"
+
+[node name="Background Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ctw4d")
+autoplay = true
+parameters/looping = true
+
+[connection signal="value_changed" from="Settings Controls/Volume Settings/Volume Slider" to="." method="_on_progress_bar_value_changed"]
+[connection signal="value_changed" from="Settings Controls/Volume Settings/Volume Slider2" to="." method="_on_volume_slider_2_value_changed"]
+[connection signal="pressed" from="Settings Controls/Back to Menu" to="." method="_on_back_to_menu_pressed"]
