@@ -1,9 +1,46 @@
-[gd_scene format=3 uid="uid://ds6dxue6o6u8f"]
+[gd_scene load_steps=3 format=3 uid="uid://ds6dxue6o6u8f"]
 
-[node name="Control" type="Control"]
+[ext_resource type="Script" uid="uid://bwgk2xh2jw0k1" path="res://ZScenes/settings_menu_options.gd" id="1_du2mm"]
+[ext_resource type="AudioStream" uid="uid://dgp16p668ijv7" path="res://Assets/Sounds/Settings Menu Music.mp3" id="2_bynqc"]
+
+[node name="Settings Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MenuOptions" type="GridContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_du2mm")
+
+[node name="Volume Control" type="Container" parent="MenuOptions"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Volume Display" type="ProgressBar" parent="MenuOptions/Volume Control"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Volume Slider" type="HSlider" parent="MenuOptions/Volume Control"]
+light_mask = 0
+visibility_layer = 0
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_bynqc")
+autoplay = true
+parameters/looping = false
+
+[connection signal="value_changed" from="MenuOptions/Volume Control/Volume Slider" to="MenuOptions" method="_on_volume_slider_value_changed"]
