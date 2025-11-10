@@ -15,8 +15,8 @@ func _on_quit_pressed() -> void:
 
 #Switches to main game screen when start game button pressed
 func _on_start_game_pressed() -> void:
-	get_tree().change_scene_to_file("res://ZombieCafe/ZScenes/template_main_game.tscn")
+	get_tree().change_scene_to_file("res://ZScenes/Main Game.tscn")
 
 #Switches to settings menu on settings button press
 func _on_settings_pressed() -> void:
-	get_tree().change_scene_to_file("res://ZombieCafe/ZScenes/settings_menu.tscn")
+	get_tree().change_scene_to_file("res://ZScenes/Settings Menu.tscn")
