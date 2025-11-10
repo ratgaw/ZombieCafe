@@ -14,12 +14,15 @@ grow_vertical = 2
 [node name="MenuOptions" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 1
-anchors_preset = 13
+anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_top = 100.0
+offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/v_separation = 100
 script = ExtResource("1_du2mm")
 
 [node name="Volume Control" type="Container" parent="MenuOptions"]
@@ -27,20 +30,31 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Volume Display" type="ProgressBar" parent="MenuOptions/Volume Control"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-
 [node name="Volume Slider" type="HSlider" parent="MenuOptions/Volume Control"]
 light_mask = 0
 visibility_layer = 0
-custom_minimum_size = Vector2(400, 30)
+custom_minimum_size = Vector2(500, 30)
 layout_mode = 2
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Volume Display" type="ProgressBar" parent="MenuOptions/Volume Control"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuOptions/Volume Control"]
+custom_minimum_size = Vector2(500, 70)
+layout_mode = 2
+text = "
+													  Volume"
+
+[node name="Back to Main" type="Button" parent="MenuOptions"]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[node name="Settings Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_bynqc")
 autoplay = true
-parameters/looping = false
+parameters/looping = true
 
 [connection signal="value_changed" from="MenuOptions/Volume Control/Volume Slider" to="MenuOptions" method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="MenuOptions/Back to Main" to="MenuOptions" method="_on_back_to_main_pressed"]

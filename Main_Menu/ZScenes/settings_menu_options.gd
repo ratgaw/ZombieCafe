@@ -20,3 +20,6 @@ func _on_volume_slider_value_changed(value: float) -> void:
 	#setting global volume variable to changed volume level and adjusts current volume
 	AudioServer.set_bus_volume_linear(Globals.master_bus, cvalue)
 	Globals.music_volume = cvalue
+	
+func _on_back_to_main_pressed() -> void:
+	get_tree().change_scene_to_file("res://ZScenes/Main Menu.tscn")
