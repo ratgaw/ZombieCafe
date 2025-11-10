@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k1bdniy44gxj"
-path="res://.godot/imported/$FD_Dungeon_Free_Door02.png-1b77a9ec3a3c93bbacdc34a953f93e0b.ctex"
+path="res://.godot/imported/$FD_Dungeon_Free_Door02.png-051429692263f66ead54b3768b67295c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Backgrounds/Sample/Free Dungeon - Fantasy Dreamland/RPG Maker/RPG Maker MV/characters/$FD_Dungeon_Free_Door02.png"
-dest_files=["res://.godot/imported/$FD_Dungeon_Free_Door02.png-1b77a9ec3a3c93bbacdc34a953f93e0b.ctex"]
+source_file="res://Assets/Backgrounds/Sample/Free Dungeon - Fantasy Dreamland/RPG Maker/RPG Maker MV/characters/$FD_Dungeon_Free_Door02.png"
+dest_files=["res://.godot/imported/$FD_Dungeon_Free_Door02.png-051429692263f66ead54b3768b67295c.ctex"]
 
 [params]
 

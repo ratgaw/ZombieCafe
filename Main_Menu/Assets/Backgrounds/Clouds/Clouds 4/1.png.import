@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxhlieti23i2s"
-path="res://.godot/imported/1.png-ca078051a7410ed07acf65eafa6e1b3a.ctex"
+path="res://.godot/imported/1.png-f53102866d496e745b183084dd7d9407.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Backgrounds/Clouds/Clouds 4/1.png"
-dest_files=["res://.godot/imported/1.png-ca078051a7410ed07acf65eafa6e1b3a.ctex"]
+source_file="res://Assets/Backgrounds/Clouds/Clouds 4/1.png"
+dest_files=["res://.godot/imported/1.png-f53102866d496e745b183084dd7d9407.ctex"]
 
 [params]
 

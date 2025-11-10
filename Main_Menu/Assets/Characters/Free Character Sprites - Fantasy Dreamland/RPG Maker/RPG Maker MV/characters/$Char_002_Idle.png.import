@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwmg8o82qjly1"
-path="res://.godot/imported/$Char_002_Idle.png-177a980f6cc7fcc460d495ab2a5b2ed9.ctex"
+path="res://.godot/imported/$Char_002_Idle.png-a7e3978b7f515998e1ebaf06edd1938a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Characters/Free Character Sprites - Fantasy Dreamland/RPG Maker/RPG Maker MV/characters/$Char_002_Idle.png"
-dest_files=["res://.godot/imported/$Char_002_Idle.png-177a980f6cc7fcc460d495ab2a5b2ed9.ctex"]
+source_file="res://Assets/Characters/Free Character Sprites - Fantasy Dreamland/RPG Maker/RPG Maker MV/characters/$Char_002_Idle.png"
+dest_files=["res://.godot/imported/$Char_002_Idle.png-a7e3978b7f515998e1ebaf06edd1938a.ctex"]
 
 [params]
 

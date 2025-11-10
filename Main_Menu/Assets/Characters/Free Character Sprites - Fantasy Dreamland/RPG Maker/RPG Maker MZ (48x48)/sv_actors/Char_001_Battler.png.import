@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkugefholsbx3"
-path="res://.godot/imported/Char_001_Battler.png-d1a4c700a20e78dad33f4fcc6937b71c.ctex"
+path="res://.godot/imported/Char_001_Battler.png-658cedaca28b22802d8a8764c5251404.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Characters/Free Character Sprites - Fantasy Dreamland/RPG Maker/RPG Maker MZ (48x48)/sv_actors/Char_001_Battler.png"
-dest_files=["res://.godot/imported/Char_001_Battler.png-d1a4c700a20e78dad33f4fcc6937b71c.ctex"]
+source_file="res://Assets/Characters/Free Character Sprites - Fantasy Dreamland/RPG Maker/RPG Maker MZ (48x48)/sv_actors/Char_001_Battler.png"
+dest_files=["res://.godot/imported/Char_001_Battler.png-658cedaca28b22802d8a8764c5251404.ctex"]
 
 [params]
 

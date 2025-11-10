@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5ij5w380g1ho"
-path="res://.godot/imported/Stone_UI_Sprite_Sheet.png-0273bed97d49e8030155c5eb0be58780.ctex"
+path="res://.godot/imported/Stone_UI_Sprite_Sheet.png-090d4c7f142e8c61b6581e31d8918c30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Menu Elements/Stone_UI_Sprite_Sheet.png"
-dest_files=["res://.godot/imported/Stone_UI_Sprite_Sheet.png-0273bed97d49e8030155c5eb0be58780.ctex"]
+source_file="res://Assets/Menu Elements/Stone_UI_Sprite_Sheet.png"
+dest_files=["res://.godot/imported/Stone_UI_Sprite_Sheet.png-090d4c7f142e8c61b6581e31d8918c30.ctex"]
 
 [params]
 

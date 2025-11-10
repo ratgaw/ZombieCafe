@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://clm416pxlbsle"
-path="res://.godot/imported/Game Music.mp3-5c105998a6da8fa21fe20c5e96620087.mp3str"
+path="res://.godot/imported/Game Music.mp3-b34e2cad51bba8df72fcd028d86def2d.mp3str"
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Sounds/Game Music.mp3"
-dest_files=["res://.godot/imported/Game Music.mp3-5c105998a6da8fa21fe20c5e96620087.mp3str"]
+source_file="res://Assets/Sounds/Game Music.mp3"
+dest_files=["res://.godot/imported/Game Music.mp3-b34e2cad51bba8df72fcd028d86def2d.mp3str"]
 
 [params]
 

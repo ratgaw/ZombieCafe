@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://4um86kb12x3r"
-path="res://.godot/imported/Char_001_Idle.png-4a234ef523ba0b88167dc4cdfea4511f.ctex"
+path="res://.godot/imported/Char_001_Idle.png-d19a9165f7df930adcdbeaca85dd8868.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ZombieCafe/Assets/Characters/Free Character Sprites - Fantasy Dreamland/32x32/Char_001_Idle.png"
-dest_files=["res://.godot/imported/Char_001_Idle.png-4a234ef523ba0b88167dc4cdfea4511f.ctex"]
+source_file="res://Assets/Characters/Free Character Sprites - Fantasy Dreamland/32x32/Char_001_Idle.png"
+dest_files=["res://.godot/imported/Char_001_Idle.png-d19a9165f7df930adcdbeaca85dd8868.ctex"]
 
 [params]
 
