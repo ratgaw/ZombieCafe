@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://ds6dxue6o6u8f"]
+[gd_scene load_steps=7 format=3 uid="uid://ds6dxue6o6u8f"]
 
 [ext_resource type="Script" uid="uid://bwgk2xh2jw0k1" path="res://ZScenes/settings_menu_options.gd" id="1_du2mm"]
+[ext_resource type="Texture2D" uid="uid://4a32ov8qxpjq" path="res://Assets/Backgrounds/Clouds/Clouds 3/1.png" id="1_lpwt2"]
 [ext_resource type="AudioStream" uid="uid://dgp16p668ijv7" path="res://Assets/Sounds/Settings Menu Music.mp3" id="2_bynqc"]
+[ext_resource type="Texture2D" uid="uid://bhrngutypr6vm" path="res://Assets/Backgrounds/Clouds/Clouds 3/3.png" id="2_cnmrj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qmswi"]
+texture = ExtResource("1_lpwt2")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nh0im"]
+texture = ExtResource("2_cnmrj")
 
 [node name="Settings Menu" type="Control"]
 layout_mode = 3
@@ -10,6 +18,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qmswi")
+
+[node name="Background Clouds" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_nh0im")
 
 [node name="MenuOptions" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(500, 0)
@@ -30,12 +56,6 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Volume Slider" type="HSlider" parent="MenuOptions/Volume Control"]
-light_mask = 0
-visibility_layer = 0
-custom_minimum_size = Vector2(500, 30)
-layout_mode = 2
-
 [node name="Volume Display" type="ProgressBar" parent="MenuOptions/Volume Control"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
@@ -46,6 +66,12 @@ custom_minimum_size = Vector2(500, 70)
 layout_mode = 2
 text = "
 													  Volume"
+
+[node name="Volume Slider" type="HSlider" parent="MenuOptions/Volume Control"]
+visibility_layer = 0
+custom_minimum_size = Vector2(500, 30)
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Back to Main" type="Button" parent="MenuOptions"]
 layout_mode = 2
