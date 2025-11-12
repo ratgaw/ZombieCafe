@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://brs752yw77brd"
-path="res://.godot/imported/FD_Dungeon_Free.png-4eef8cc07ce73ecb16abf3a852eb158e.ctex"
+path="res://.godot/imported/FD_Dungeon_Free.png-b789128c7de0cf5f1f3b1ad0cf3b928d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Backgrounds/Sample/Free Dungeon - Fantasy Dreamland/32x32/FD_Dungeon_Free.png"
-dest_files=["res://.godot/imported/FD_Dungeon_Free.png-4eef8cc07ce73ecb16abf3a852eb158e.ctex"]
+source_file="res://Assets/Tiles/FD_Dungeon_Free.png"
+dest_files=["res://.godot/imported/FD_Dungeon_Free.png-b789128c7de0cf5f1f3b1ad0cf3b928d.ctex"]
 
 [params]
 

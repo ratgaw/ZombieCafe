@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b166kri0t125b"]
+
+[ext_resource type="TileSet" uid="uid://bbdk2kw5qsuvl" path="res://Assets/Tiles/cafe_tileset.tres" id="1_l05kj"]
+
+[node name="Cafe Game" type="Node2D"]
+
+[node name="TopDownCamera" type="Camera2D" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_l05kj")

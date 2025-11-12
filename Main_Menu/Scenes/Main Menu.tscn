@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://bnjbsc5jiblep"]
 
-[ext_resource type="Script" uid="uid://cv17shqaueidw" path="res://ZScenes/main_menu.gd" id="1_6ty6p"]
+[ext_resource type="Script" uid="uid://cv17shqaueidw" path="res://Scripts/main_menu.gd" id="1_6ty6p"]
 [ext_resource type="Texture2D" uid="uid://dxhlieti23i2s" path="res://Assets/Backgrounds/Clouds/Clouds 4/1.png" id="2_hv24x"]
 [ext_resource type="Texture2D" uid="uid://cfr76200gmp7s" path="res://Assets/Backgrounds/Clouds/Clouds 2/3.png" id="3_hcmdg"]
 [ext_resource type="Texture2D" uid="uid://dv5phhmtjp61l" path="res://Assets/Backgrounds/Clouds/Clouds 2/2.png" id="4_g3nih"]
-[ext_resource type="Script" uid="uid://c5h5pav0wxd64" path="res://ZScenes/menu_options.gd" id="5_d3u7a"]
-[ext_resource type="AudioStream" uid="uid://d05hs1v4fu13g" path="res://Assets/Sounds/Main Menu Music.mp3" id="6_hcmdg"]
+[ext_resource type="Script" uid="uid://c5h5pav0wxd64" path="res://Scripts/menu_options.gd" id="5_d3u7a"]
+[ext_resource type="AudioStream" uid="uid://d05hs1v4fu13g" path="res://Assets/Audio/Main Menu Music.mp3" id="6_hcmdg"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pebhl"]
 texture = ExtResource("2_hv24x")
