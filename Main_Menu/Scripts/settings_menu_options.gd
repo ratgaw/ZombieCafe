@@ -22,4 +22,4 @@ func _on_volume_slider_value_changed(value: float) -> void:
 	Globals.music_volume = cvalue
 	
 func _on_back_to_main_pressed() -> void:
-	get_tree().change_scene_to_file("res://ZScenes/Main Menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Main Menu.tscn")

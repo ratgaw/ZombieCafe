@@ -19,4 +19,4 @@ func _on_start_game_pressed() -> void:
 
 #Switches to settings menu on settings button press
 func _on_settings_pressed() -> void:
-	get_tree().change_scene_to_file("res://ZScenes/Settings Menu.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Settings Menu.tscn")
