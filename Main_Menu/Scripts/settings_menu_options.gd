@@ -12,6 +12,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+#Returns user to previous screen on esc press	
+func _input(leave_menu: InputEvent) -> void:
+	if leave_menu.is_action_pressed("options_menu"):
+		get_tree().change_scene_to_file(Globals.last_scene)
+		Globals.last_scene = "res://Scenes/Settings Menu.tscn"
+	
 
 #Controls volume
 func _on_volume_slider_value_changed(value: float) -> void:
@@ -20,6 +27,8 @@ func _on_volume_slider_value_changed(value: float) -> void:
 	#setting global volume variable to changed volume level and adjusts current volume
 	AudioServer.set_bus_volume_linear(Globals.master_bus, cvalue)
 	Globals.music_volume = cvalue
-	
+
+#Returns to main menu	
 func _on_back_to_main_pressed() -> void:
+	Globals.last_scene = get_tree().current_scene.scene_file_path
 	get_tree().change_scene_to_file("res://Scenes/Main Menu.tscn")

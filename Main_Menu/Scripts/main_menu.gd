@@ -7,9 +7,6 @@ extends Control
 func _ready() -> void:
 	AudioServer.set_bus_volume_linear(Globals.master_bus,Globals.music_volume)
 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	#function controlling clouds moving in background
 	$MovingClouds.position += Vector2(2,0)
