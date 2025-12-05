@@ -48,7 +48,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_bncpf")
 layout_mode = 1
 anchors_preset = -1
 offset_left = 400.0
-offset_top = 200.0
+offset_top = 350.0
 offset_right = 750.0
 offset_bottom = 550.0
 theme_override_constants/v_separation = 25
@@ -83,6 +83,22 @@ text = "Quit"
 stream = ExtResource("6_hcmdg")
 autoplay = true
 parameters/looping = true
+
+[node name="TitleText" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 112.0
+offset_right = 760.0
+offset_bottom = 272.0
+theme_override_colors/default_color = Color(0.20784314, 0.5019608, 0.16862746, 1)
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[pulse freq=1.0 color=TRANSPARENT ease=-2.0] Zombie Cafe"
+fit_content = true
+autowrap_mode = 0
+tab_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="MenuOptions/StartGame" to="MenuOptions" method="_on_start_game_pressed"]
 [connection signal="pressed" from="MenuOptions/Settings" to="MenuOptions" method="_on_settings_pressed"]
