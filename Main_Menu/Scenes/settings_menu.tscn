@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds6dxue6o6u8f"]
+[gd_scene load_steps=7 format=3 uid="uid://c56jo3dh6kwj4"]
 
-[ext_resource type="Script" uid="uid://bwgk2xh2jw0k1" path="res://Scripts/settings_menu_options.gd" id="1_du2mm"]
-[ext_resource type="Texture2D" uid="uid://4a32ov8qxpjq" path="res://Assets/Backgrounds/Clouds/Clouds 3/1.png" id="1_lpwt2"]
-[ext_resource type="AudioStream" uid="uid://dgp16p668ijv7" path="res://Assets/Audio/Settings Menu Music.mp3" id="2_bynqc"]
-[ext_resource type="Texture2D" uid="uid://bhrngutypr6vm" path="res://Assets/Backgrounds/Clouds/Clouds 3/3.png" id="2_cnmrj"]
+[ext_resource type="Texture2D" uid="uid://4a32ov8qxpjq" path="res://Assets/Backgrounds/Clouds/Clouds 3/1.png" id="1_h2y1r"]
+[ext_resource type="Texture2D" uid="uid://bhrngutypr6vm" path="res://Assets/Backgrounds/Clouds/Clouds 3/3.png" id="2_3etfd"]
+[ext_resource type="Script" uid="uid://cqi3gajodtog5" path="res://Scripts/settings_menu_options.gd" id="3_h2y1r"]
+[ext_resource type="AudioStream" uid="uid://dgp16p668ijv7" path="res://Assets/Audio/Settings Menu Music.mp3" id="4_fe37x"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qmswi"]
-texture = ExtResource("1_lpwt2")
+texture = ExtResource("1_h2y1r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nh0im"]
-texture = ExtResource("2_cnmrj")
+texture = ExtResource("2_3etfd")
 
 [node name="Settings Menu" type="Control"]
 layout_mode = 3
@@ -49,7 +49,7 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/v_separation = 100
-script = ExtResource("1_du2mm")
+script = ExtResource("3_h2y1r")
 
 [node name="Volume Control" type="Container" parent="MenuOptions"]
 custom_minimum_size = Vector2(0, 50)
@@ -73,14 +73,14 @@ custom_minimum_size = Vector2(500, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Back to Main" type="Button" parent="MenuOptions"]
+[node name="Back to Game" type="Button" parent="MenuOptions"]
 layout_mode = 2
-text = "Back to Main Menu"
+text = "Return to Game"
 
 [node name="Settings Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_bynqc")
+stream = ExtResource("4_fe37x")
 autoplay = true
 parameters/looping = true
 
 [connection signal="value_changed" from="MenuOptions/Volume Control/Volume Slider" to="MenuOptions" method="_on_volume_slider_value_changed"]
-[connection signal="pressed" from="MenuOptions/Back to Main" to="MenuOptions" method="_on_back_to_main_pressed"]
+[connection signal="pressed" from="MenuOptions/Back to Game" to="MenuOptions" method="_on_back_to_game_pressed"]

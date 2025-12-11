@@ -1,5 +1,6 @@
 extends GridContainer
 
+const loading_screen_path = "res://Scenes/loading_screen.tscn"
 @onready var volume_display: ProgressBar = $"Volume Control/Volume Display"
 @onready var volume_slider: HSlider = $"Volume Control/Volume Slider"
 
@@ -17,7 +18,7 @@ func _process(delta: float) -> void:
 func _input(leave_menu: InputEvent) -> void:
 	if leave_menu.is_action_pressed("options_menu"):
 		get_tree().change_scene_to_file(Globals.last_scene)
-		Globals.last_scene = "res://Scenes/Settings Menu.tscn"
+		Globals.last_scene = "res://Scenes/settings_menu.tscn"
 	
 
 #Controls volume
@@ -27,8 +28,8 @@ func _on_volume_slider_value_changed(value: float) -> void:
 	#setting global volume variable to changed volume level and adjusts current volume
 	AudioServer.set_bus_volume_linear(Globals.master_bus, cvalue)
 	Globals.music_volume = cvalue
-
-#Returns to main menu	
-func _on_back_to_main_pressed() -> void:
+	
+	#Returns to game
+func _on_back_to_game_pressed() -> void:
 	Globals.last_scene = get_tree().current_scene.scene_file_path
-	get_tree().change_scene_to_file("res://Scenes/Main Menu.tscn")
+	get_tree().change_scene_to_file(loading_screen_path)

@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://0j31q5h1ra3y"]
+
+[ext_resource type="Texture2D" uid="uid://b3u0m1ak1rjre" path="res://Assets/Sprites/Zombie&Villager1_Animations.png" id="1_ig52h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dytm"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(0, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_241ve"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(48, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_328j1"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(144, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwnp8"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(0, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vobeq"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(48, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qf2gc"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(96, 98, 48, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxrfj"]
+atlas = ExtResource("1_ig52h")
+region = Rect2(144, 98, 48, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ywo1y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dytm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_241ve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_328j1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwnp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vobeq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qf2gc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bxrfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dytm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_241ve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_328j1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dytm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_241ve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_328j1")
+}],
+"loop": true,
+"name": &"Idle_Front",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mpp"]
+size = Vector2(44, 97)
+
+[node name="Peasant1" type="CharacterBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -69)
+scale = Vector2(3, 3.009)
+sprite_frames = SubResource("SpriteFrames_ywo1y")
+animation = &"Idle_Front"
+autoplay = "Idle_Front"
+frame_progress = 0.6021314
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -54.5)
+shape = SubResource("RectangleShape2D_y8mpp")
