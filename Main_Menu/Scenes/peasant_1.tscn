@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://0j31q5h1ra3y"]
+[gd_scene load_steps=12 format=3 uid="uid://0j31q5h1ra3y"]
 
+[ext_resource type="Script" uid="uid://clb4cmmt64en2" path="res://Scenes/peasant_1.gd" id="1_8dytm"]
 [ext_resource type="Texture2D" uid="uid://b3u0m1ak1rjre" path="res://Assets/Sprites/Zombie&Villager1_Animations.png" id="1_ig52h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8dytm"]
@@ -81,6 +82,8 @@ animations = [{
 size = Vector2(44, 97)
 
 [node name="Peasant1" type="CharacterBody2D"]
+rotation = 3.1415927
+script = ExtResource("1_8dytm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -69)

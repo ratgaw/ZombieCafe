@@ -4,7 +4,12 @@
 [ext_resource type="TileSet" uid="uid://bbdk2kw5qsuvl" path="res://Assets/Tiles/cafe_tileset.tres" id="1_aygtp"]
 [ext_resource type="Script" uid="uid://bg45mnn3kevs7" path="res://Scripts/cafe_popup_options.gd" id="3_4wyqv"]
 [ext_resource type="AudioStream" uid="uid://clm416pxlbsle" path="res://Assets/Audio/Game Music.mp3" id="4_4wyqv"]
-[ext_resource type="PackedScene" uid="uid://0j31q5h1ra3y" path="res://Scenes/peasant_1.tscn" id="5_0ja1t"]
+
+[sub_resource type="Curve2D" id="Curve2D_0ja1t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 528, -264, 0, 0, 0, 0, -616, -253.97014, 0, 0, 0, 0, -616, 66.98509, 0, 0, 0, 0, -624, 397.97018, 0, 0, 0, 0, -360, 392, 0, 0, 0, 0, -288, 216, -11, 5, 11, -5, -280, 32, 0, 0, 0, 0, -104, 40)
+}
+point_count = 8
 
 [node name="Cafe Game" type="Node2D"]
 script = ExtResource("1_4hync")
@@ -36,7 +41,9 @@ stream = ExtResource("4_4wyqv")
 autoplay = true
 parameters/looping = true
 
-[node name="Peasant1" parent="." instance=ExtResource("5_0ja1t")]
-position = Vector2(171, -69)
+[node name="CustomerPath" type="Path2D" parent="."]
+position = Vector2(0, 18.571419)
+scale = Vector2(1, 0.79761904)
+curve = SubResource("Curve2D_0ja1t")
 
 [connection signal="index_pressed" from="Game Options Menu" to="Game Options Menu" method="_on_index_pressed"]
