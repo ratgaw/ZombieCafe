@@ -178,21 +178,20 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mpp"]
-size = Vector2(44, 97)
+size = Vector2(17, 37)
 
 [node name="Peasant1" type="CharacterBody2D"]
 script = ExtResource("1_8dytm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -69)
-scale = Vector2(3, 3.009)
 sprite_frames = SubResource("SpriteFrames_ywo1y")
 animation = &"Idle_Front"
 autoplay = "Idle_Front"
 frame_progress = 0.31601194
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, -54.5)
+position = Vector2(0.5, -66.5)
 shape = SubResource("RectangleShape2D_y8mpp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
