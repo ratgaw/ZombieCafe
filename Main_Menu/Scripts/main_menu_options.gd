@@ -5,7 +5,7 @@ const loading_screen_path = "res://Scenes/loading_screen.tscn"
 const main_game_path = "res://Scenes/main_menu.tscn"
 const msettings_path = "res://Scenes/msettings_menu.tscn"
 
-# Called when the node enters the scene tree for the first time.
+#Sets volume bar graphic to current volume when entering menu
 func _ready() -> void:
 	AudioServer.set_bus_volume_linear(Globals.master_bus,Globals.music_volume)
 

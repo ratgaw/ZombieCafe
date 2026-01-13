@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brs752yw77brd"
-path="res://.godot/imported/FD_Dungeon_Free.png-b789128c7de0cf5f1f3b1ad0cf3b928d.ctex"
+uid="uid://bamh8myyx4boy"
+path="res://.godot/imported/Cafe_Plant_Props.png-acc9daefdc27acc57e7f33cb45ef6c27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Tiles/FD_Dungeon_Free.png"
-dest_files=["res://.godot/imported/FD_Dungeon_Free.png-b789128c7de0cf5f1f3b1ad0cf3b928d.ctex"]
+source_file="res://Assets/Tiles/Cafe_Plant_Props.png"
+dest_files=["res://.godot/imported/Cafe_Plant_Props.png-acc9daefdc27acc57e7f33cb45ef6c27.ctex"]
 
 [params]
 

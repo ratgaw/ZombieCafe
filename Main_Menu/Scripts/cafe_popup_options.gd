@@ -2,6 +2,7 @@ extends PopupMenu
 
 @onready var game_options_menu: PopupMenu = $"Game Options Menu"
 
+#Controls mute/unmute button in popup menu
 func _ready() -> void:
 	if Globals.unmute:
 		toggle_item_checked(2)

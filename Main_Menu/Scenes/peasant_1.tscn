@@ -181,6 +181,7 @@ animations = [{
 size = Vector2(17, 37)
 
 [node name="Peasant1" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_8dytm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -193,5 +194,3 @@ frame_progress = 0.31601194
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, -66.5)
 shape = SubResource("RectangleShape2D_y8mpp")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
