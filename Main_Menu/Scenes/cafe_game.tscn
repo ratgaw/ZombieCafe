@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://0j31q5h1ra3y" path="res://Scenes/peasant_1.tscn" id="5_0ja1t"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0ja1t"]
-vertices = PackedVector2Array(942.0703, 630, -950, 630, -950, -566, 949.9297, -566)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-960, -576, 960, -576, 952, 640, -960, 640)])
+vertices = PackedVector2Array(-104, 56, 438, 94, -342, 94, -120, 56, -342, -206, -120, 24, 438, -206, -104, 24)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 2, 4, 5), PackedInt32Array(5, 4, 6, 7), PackedInt32Array(7, 6, 1, 0)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-352, -216, 448, -216, 448, 104, -352, 104)])
 
 [node name="Cafe Game" type="Node2D"]
 script = ExtResource("1_4hync")
@@ -22,7 +22,7 @@ rendering_quadrant_size = 32
 [node name="Floor Prop Layer" type="TileMapLayer" parent="."]
 light_mask = 2
 visibility_layer = 2
-tile_map_data = PackedByteArray("AAALAAEAAgAPAAcAAAALAP7/AgAPAAcAAAALAPv/AgAPAAcAAAD4/wEAAgAPAAcAAAD4//7/AgAPAAcAAAD4//v/AgAPAAcAAAAFAPv/AgARAAcAAAAFAAEAAgARAAcAAAD8//v/AgARAAcAAAD8/wEAAgARAAcAAAD3/wEAAgAOAAgAAAD3//7/AgAOAAgAAAD3//v/AgAOAAgAAAAMAAEAAgAOAAgAABAMAP7/AgAOAAgAABAGAAEAAgAOAAgAABD8//r/AgAPAAgAAAAFAPr/AgAPAAgAAAALAPr/AgAPAAgAAAD9/wEAAgAOAAYAAAD8//z/AgAOAAYAAAAGAPz/AgAOAAYAAAD5//7/AgAOAAYAAAALAPz/AgAOAAYAAAAAAPv/AgACAAUAAAACAAAAAgACAAUAAAAIAP7/AgACAAUAAAA=")
+tile_map_data = PackedByteArray("AAALAAEAAgAPAAcAAAALAP7/AgAPAAcAAAALAPv/AgAPAAcAAAAFAPv/AgARAAcAAAAFAAEAAgARAAcAAAD8//v/AgARAAcAAAD8/wEAAgARAAcAAAAMAAEAAgAOAAgAABAMAP7/AgAOAAgAABAGAAEAAgAOAAgAABD8//r/AgAPAAgAAAAFAPr/AgAPAAgAAAALAPr/AgAPAAgAAAD9/wEAAgAOAAYAAAD8//z/AgAOAAYAAAAGAPz/AgAOAAYAAAALAPz/AgAOAAYAAAAAAPv/AgACAAUAAAACAAAAAgACAAUAAAAIAP7/AgACAAUAAAD3//z/AgAMAAEAAAD3//3/AgAMAAEAAAD3//7/AgAMAAEAAAD3////AgAMAAIAAAD2////AgALAAIAAAD1////AgALAAIAAAD3//v/AgAMAAAAAAA=")
 tile_set = ExtResource("1_aygtp")
 rendering_quadrant_size = 32
 
@@ -70,7 +70,7 @@ parameters/looping = true
 [node name="Customer Area" type="Area2D" parent="."]
 
 [node name="Peasant1" parent="Customer Area" instance=ExtResource("5_0ja1t")]
-position = Vector2(0, 50)
+position = Vector2(-16, -32)
 
 [node name="TopDownCamera" type="Camera2D" parent="Customer Area/Peasant1"]
 position = Vector2(0, -50)
@@ -78,7 +78,11 @@ zoom = Vector2(2, 2)
 editor_draw_limits = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Customer Area"]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_0ja1t")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Customer Area/NavigationRegion2D"]
+vertices = PackedVector2Array(-104, 24, -120, 24, -120, 56, -104, 56)
+affect_navigation_mesh = true
+carve_navigation_mesh = true
 
 [connection signal="index_pressed" from="Game Options Menu" to="Game Options Menu" method="_on_index_pressed"]
