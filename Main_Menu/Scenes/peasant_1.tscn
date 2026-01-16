@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=3 uid="uid://0j31q5h1ra3y"]
 
-[ext_resource type="Script" uid="uid://clb4cmmt64en2" path="res://Scenes/peasant_1.gd" id="1_8dytm"]
+[ext_resource type="Script" uid="uid://clb4cmmt64en2" path="res://Scripts/peasant_1.gd" id="1_8dytm"]
 [ext_resource type="Texture2D" uid="uid://b3u0m1ak1rjre" path="res://Assets/Sprites/Zombie&Villager1_Animations.png" id="1_ig52h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig52h"]
@@ -322,5 +322,7 @@ animation = &"Idle_Front"
 autoplay = "Idle_Front"
 offset = Vector2(0, -5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Collision Box" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_y8mpp")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
