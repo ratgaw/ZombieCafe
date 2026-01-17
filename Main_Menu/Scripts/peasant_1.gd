@@ -7,12 +7,12 @@ signal Order_Taken (Order_Taken : bool)
 signal Order_Fulfilled (Order_Fufilled : bool)
 
 #speed for test player movement function
-@export var speed: float = 100.0
+@export var speed: float = 50.0
 
 func _ready():
-	set_move_to_target(Vector2(-250,-100))
+	set_move_to_target(Globals.order_pos)
 
-#function controlling player test movement & walk/idle animations
+##function controlling player test movement & walk/idle animations
 #func _physics_process(_float):
 	#var direction := Vector2.ZERO
 #
@@ -52,6 +52,16 @@ func _movement(delta):
 	var mov_pos = movement.get_next_path_position()
 	var mov_dir = global_position.direction_to(mov_pos)
 	var smovement = mov_dir * speed * delta
+
+	if smovement.x < 0 && smovement.x < smovement.y:
+		animations.animation = "Walk_Left"
+	elif mov_dir.x > 0 && smovement.x > smovement.y:
+		animations.animation = "Walk_Right"
+	elif mov_dir.y < 0 && smovement.y < smovement.x:
+		animations.animation = "Walk_Up"
+	elif mov_dir.y > 0 && smovement.y > smovement.x:
+		animations.animation = "Walk_Down"
+	print(smovement)
 	translate(smovement)
 
 func set_move_to_target(target : Vector2):

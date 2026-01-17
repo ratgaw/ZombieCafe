@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var game_options_menu: PopupMenu = $"Game Options Menu"
 @onready var peasant_scene = preload("res://Scenes/peasant_1.tscn")
+@onready var order_station_marker: Marker2D = $"Order Station Marker"
+
 
 func _ready() -> void:
 	pass
