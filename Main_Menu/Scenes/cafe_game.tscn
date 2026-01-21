@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://b166kri0t125b"]
+[gd_scene load_steps=8 format=4 uid="uid://b166kri0t125b"]
 
 [ext_resource type="Script" uid="uid://8dns3g2eg8ct" path="res://Scripts/cafe_game_screen.gd" id="1_4hync"]
 [ext_resource type="TileSet" uid="uid://bbdk2kw5qsuvl" path="res://Assets/Tiles/cafe_tileset.tres" id="1_aygtp"]
 [ext_resource type="Script" uid="uid://bg45mnn3kevs7" path="res://Scripts/cafe_popup_options.gd" id="3_4wyqv"]
 [ext_resource type="AudioStream" uid="uid://clm416pxlbsle" path="res://Assets/Audio/Game Music.mp3" id="4_4wyqv"]
 [ext_resource type="PackedScene" uid="uid://0j31q5h1ra3y" path="res://Scenes/peasant_1.tscn" id="5_0ja1t"]
+[ext_resource type="Script" uid="uid://klqu36oimgyw" path="res://Scenes/grid_display.gd" id="6_0hd55"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0ja1t"]
 vertices = PackedVector2Array(-342, 78, 200, 50, 339, 49, 398, 49, 438, 78, 398, -83, 339, -83, -87, -142, -87, -194, 151, -142, 397, -142, 397, -178, 437, -206, 327, -206, 338, -178, 200, -194, 151, 50, -88, 50, -137, 50, -342, -13, -246, -13, -137, -2, 200, -2, 339, 13, 338, -142, 200, -142, 437, -214, 438, -214, 398, -47, 398, 13, 151, -2, -88, -2, -246, -149, -342, -149, -342, -214, -136, -194, 327, -214, 151, -194, -136, -142, 339, -47)
@@ -70,15 +71,15 @@ stream = ExtResource("4_4wyqv")
 autoplay = true
 parameters/looping = true
 
+[node name="TopDownCamera" type="Camera2D" parent="."]
+position = Vector2(40, -67)
+zoom = Vector2(2, 2)
+editor_draw_limits = true
+
 [node name="Customer Area" type="Area2D" parent="."]
 
 [node name="Peasant1" parent="Customer Area" instance=ExtResource("5_0ja1t")]
 position = Vector2(259, 51)
-
-[node name="TopDownCamera" type="Camera2D" parent="Customer Area/Peasant1"]
-position = Vector2(0, -50)
-zoom = Vector2(2, 2)
-editor_draw_limits = true
 
 [node name="Customer Nav Area" type="NavigationRegion2D" parent="Customer Area"]
 navigation_polygon = SubResource("NavigationPolygon_0ja1t")
@@ -127,4 +128,27 @@ vertices = PackedVector2Array(-109.99524, -5.1041565, -145.99522, -5.1382446, -1
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 
+[node name="Grid Display" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_0hd55")
+
+[node name="MarginContainer" type="MarginContainer" parent="Grid Display"]
+layout_mode = 0
+offset_left = -245.0
+offset_top = -225.0
+offset_right = -138.0
+offset_bottom = -194.0
+scale = Vector2(0.5, 0.5)
+
+[node name="PanelContainer" type="PanelContainer" parent="Grid Display/MarginContainer"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Grid Display/MarginContainer/PanelContainer"]
+layout_mode = 2
+text = "Show Grid"
+
 [connection signal="index_pressed" from="Game Options Menu" to="Game Options Menu" method="_on_index_pressed"]
+[connection signal="toggled" from="Grid Display/MarginContainer/PanelContainer/CheckBox" to="Grid Display" method="toggle_grid_display"]

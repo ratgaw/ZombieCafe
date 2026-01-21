@@ -49,6 +49,9 @@ func _process(delta):
 	_movement(delta)
 
 func _movement(delta):
+	
+	if movement.is_navigation_finished():
+		return
 	var mov_pos = movement.get_next_path_position()
 	var mov_dir = global_position.direction_to(mov_pos)
 	var smovement = mov_dir * speed * delta
