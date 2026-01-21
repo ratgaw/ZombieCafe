@@ -52,7 +52,7 @@ func _movement(delta):
 	var mov_pos = movement.get_next_path_position()
 	var mov_dir = global_position.direction_to(mov_pos)
 	var smovement = mov_dir * speed * delta
-
+	
 	if smovement.x < 0 && smovement.x < smovement.y:
 		animations.animation = "Walk_Left"
 	elif mov_dir.x > 0 && smovement.x > smovement.y:
@@ -61,6 +61,7 @@ func _movement(delta):
 		animations.animation = "Walk_Up"
 	elif mov_dir.y > 0 && smovement.y > smovement.x:
 		animations.animation = "Walk_Down"
+	
 	print(smovement)
 	translate(smovement)
 
