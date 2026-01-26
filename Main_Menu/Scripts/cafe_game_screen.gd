@@ -9,34 +9,52 @@ extends Node2D
 @onready var peasant_scene = preload("res://Scenes/peasant_1.tscn")
 @onready var order_station_marker: Marker2D = $"Order Station Marker"
 @onready var astar: AStarGrid2D
+@onready var map_bounds: Rect2i
 
 func _ready():
-	var positions = floor_layer.find_tiles_with_custom_data("Obstacle", true)
-	Globals.obstacles_pos.append_array(positions)
-	print("Floor Layer obstacle positions - " + positions)
-	positions = floor_prop_layer.find_tiles_with_custom_data("Obstacle", true)
-	Globals.obstacles_pos.append_array(positions)
-	print("Floor Prop Layer obstacle positions - " + positions)
-	positions = wall_layer.find_tiles_with_custom_data("Obstacle", true)
-	Globals.obstacles_pos.append_array(positions)
-	print("Wall Layer obstacle positions - " + positions)
-	positions = wall_ornament_layer.find_tiles_with_custom_data("Obstacle", true)
-	Globals.obstacles_pos.append_array(positions)
-	print("Wall Ornament Layer obstacle positions - " + positions)
-	positions = ceiling_layer.find_tiles_with_custom_data("Obstacle", true)
-	Globals.obstacles_pos.append_array(positions)
-	print("Ceiling Layer obstacle positions - " + positions)
-	print(Globals.obstacles_pos)
+	obs_value_scan_layer(floor_layer)
+	obs_value_scan_layer(floor_prop_layer)
+	obs_value_scan_layer(wall_layer)
+	obs_value_scan_layer(wall_ornament_layer)
+	obs_value_scan_layer(ceiling_layer)
+	find_map_bounds(floor_layer)
+	astar.new()
+	astar.region = map_bounds
+	astar.cell_size = Vector2(32, 32)
+	for obs in Globals.obstacles_pos:
+		astar.set_point_solid(obs, true)
+	astar.default_compute_heuristic = 1
+	astar.diagonal_mode = 1
+	astar.jumping_enabled = true
+	astar.update()
 
-func find_tiles_with_obstacle_tag(tilemap: TileMap, key: bool = true) -> Array:
-	var tileset: TileSet = tilemap.tile_set
+#Scans a TileMapLayer for every tile labeled as an obstacle and adds it to global list of obstacles
+func obs_value_scan_layer(tilemap: TileMapLayer) -> Array:
+	for tile in tilemap.get_used_cells():
+		var used_tile_data := tilemap.get_cell_tile_data(tile)
+		if used_tile_data == null:
+			pass
+		elif used_tile_data.get_custom_data("Obstacle"):
+			Globals.obstacles_pos.append(tile)
+	print(Globals.obstacles_pos)
+	return Globals.obstacles_pos
+
+#Finds size of the map
+func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
+	var used_cells := tilemap.get_used_cells()
+	var min_x := INF
+	var min_y := INF
+	var max_x := -INF
+	var max_y := -INF
 	
-	var i: int = 1
-	while i < 10:
-		for cell in tilemap.get_used_cells(i):
-			var source_id = tilemap.get_cell_source_id(i, cell)
-			if source_id == -1:
-				
+	for cell in used_cells:
+		min_x = min(min_x, cell.x)
+		min_y = min(min_y, cell.y)
+		max_x = max(max_x, cell.x)
+		max_y = max(max_y, cell.y)
+	
+	map_bounds = Rect2i(Vector2i(min_x, min_y), Vector2i(max_x - min_x + 1, max_y - min_y + 1))
+	return map_bounds
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:
