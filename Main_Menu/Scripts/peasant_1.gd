@@ -12,39 +12,6 @@ signal Order_Fulfilled (Order_Fufilled : bool)
 func _ready():
 	set_move_to_target(Globals.order_pos)
 
-##function controlling player test movement & walk/idle animations
-#func _physics_process(_float):
-	#var direction := Vector2.ZERO
-#
-##Moves/plays walk animation on peasant depending on keystroke
-	#if Input.is_action_pressed("move_down"):
-		#direction.y += 1
-		#$Animations.animation = "Walk_Down"
-	#if Input.is_action_pressed("move_up"):
-		#direction.y -= 1
-		#$Animations.animation = "Walk_Up"
-	#if Input.is_action_pressed("move_left"):
-		#direction.x -= 1
-		#$Animations.animation = "Walk_Left"
-	#if Input.is_action_pressed("move_right"):
-		#direction.x += 1
-		#$Animations.animation = "Walk_Right"
-	#if direction != Vector2.ZERO:
-		#direction = direction.normalized()
-		#
-	#velocity = direction * speed
-	#move_and_slide()
-
-##Returns peasant to idle animation depending on last direction moved
-	#if Input.is_action_just_released("move_down"):
-		#$Animations.animation = "Idle_Front"
-	#if Input.is_action_just_released("move_up"):
-		#$Animations.animation = "Idle_Back"
-	#if Input.is_action_just_released("move_left"):
-		#$Animations.animation = "Idle_Left"
-	#if Input.is_action_just_released("move_right"):
-		#$Animations.animation = "Idle_Right"
-
 func _process(delta):
 	_movement(delta)
 
@@ -65,7 +32,6 @@ func _movement(delta):
 	elif mov_dir.y > 0 && smovement.y > smovement.x:
 		animations.animation = "Walk_Down"
 	
-	print(smovement)
 	translate(smovement)
 
 func set_move_to_target(target : Vector2):

@@ -1,26 +1,42 @@
 extends Node2D
 
 @onready var game_options_menu: PopupMenu = $"Game Options Menu"
+@onready var floor_layer: TileMapLayer = $"Floor Layer"
+@onready var floor_prop_layer: TileMapLayer = $"Floor Prop Layer"
+@onready var wall_layer: TileMapLayer = $"Wall Layer"
+@onready var wall_ornament_layer: TileMapLayer = $"Wall Ornament Layer"
+@onready var ceiling_layer: TileMapLayer = $"Ceiling Layer"
 @onready var peasant_scene = preload("res://Scenes/peasant_1.tscn")
 @onready var order_station_marker: Marker2D = $"Order Station Marker"
-@onready var grid_display: Control = $"Grid Display"
-@export var map: TileMapLayer
-var astar_grid: AStarGrid2D
-
-
+@onready var astar: AStarGrid2D
 
 func _ready():
-	astar_grid = AStarGrid2D.new()
-	astar_grid.cell_size = map.tile_set.tile_size
-	astar_grid.region = Rect2(Vector2.ZERO, ceil(get_viewport_rect().size / astar_grid.cell_size))
-	astar_grid.update()
+	var positions = floor_layer.find_tiles_with_custom_data("Obstacle", true)
+	Globals.obstacles_pos.append_array(positions)
+	print("Floor Layer obstacle positions - " + positions)
+	positions = floor_prop_layer.find_tiles_with_custom_data("Obstacle", true)
+	Globals.obstacles_pos.append_array(positions)
+	print("Floor Prop Layer obstacle positions - " + positions)
+	positions = wall_layer.find_tiles_with_custom_data("Obstacle", true)
+	Globals.obstacles_pos.append_array(positions)
+	print("Wall Layer obstacle positions - " + positions)
+	positions = wall_ornament_layer.find_tiles_with_custom_data("Obstacle", true)
+	Globals.obstacles_pos.append_array(positions)
+	print("Wall Ornament Layer obstacle positions - " + positions)
+	positions = ceiling_layer.find_tiles_with_custom_data("Obstacle", true)
+	Globals.obstacles_pos.append_array(positions)
+	print("Ceiling Layer obstacle positions - " + positions)
+	print(Globals.obstacles_pos)
+
+func find_tiles_with_obstacle_tag(tilemap: TileMap, key: bool = true) -> Array:
+	var tileset: TileSet = tilemap.tile_set
 	
-	for id in map.get_used_cells():
-		var data = map.get_cell_tile_data(id)
-		if data and data.get_custom_data('Obstacle'):
-			astar_grid.set_point_solid(id)
-	
-	grid_display.grid = astar_grid
+	var i: int = 1
+	while i < 10:
+		for cell in tilemap.get_used_cells(i):
+			var source_id = tilemap.get_cell_source_id(i, cell)
+			if source_id == -1:
+				
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:

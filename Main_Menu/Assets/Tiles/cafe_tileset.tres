@@ -318,5 +318,5 @@ custom_data_layer_0/name = "Obstacle"
 custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_3u5ac")
 sources/2 = SubResource("TileSetAtlasSource_bm6j2")
-sources/5 = SubResource("TileSetAtlasSource_mvqe1")
 sources/3 = SubResource("TileSetAtlasSource_neeew")
+sources/4 = SubResource("TileSetAtlasSource_mvqe1")
