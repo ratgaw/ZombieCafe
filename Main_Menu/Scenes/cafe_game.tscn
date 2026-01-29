@@ -81,6 +81,7 @@ editor_draw_limits = true
 
 [node name="Peasant1" parent="Customer Area" instance=ExtResource("5_0ja1t")]
 position = Vector2(259, 51)
+speed = 50.0
 
 [node name="Customer Nav Area" type="NavigationRegion2D" parent="Customer Area"]
 navigation_polygon = SubResource("NavigationPolygon_0ja1t")

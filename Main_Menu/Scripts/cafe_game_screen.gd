@@ -12,7 +12,7 @@ extends Node2D
 @onready var map_bounds: Rect2i
 
 func _ready():
-	pass
+	NpcPathfinding.find_map_bounds(floor_layer)
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:

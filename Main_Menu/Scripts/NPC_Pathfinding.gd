@@ -1,11 +1,11 @@
 extends Node
 
-var astar: AStarGrid2D
+@onready var astar: AStarGrid2D
 var npc_route: Array
 
 #Creates an empty pathfinding grid with the desired settings to be used and changed by NPC pathfinding functions
 func _ready() -> void:
-	astar.new()
+	astar = AStarGrid2D.new()
 	astar.region = Globals.map_bounds
 	astar.cell_size = Vector2(32, 32)
 	astar.default_compute_heuristic = 1

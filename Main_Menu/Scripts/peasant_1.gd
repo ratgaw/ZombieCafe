@@ -13,7 +13,12 @@ signal Order_Fulfilled (Order_Fufilled : bool)
 
 
 func _ready():
-	setpath()
+	print(Globals.map_bounds)
+	if Globals.map_bounds:	
+		setpath()
+	else:
+		return
+	print(pathfinding)
 	#set_move_to_target(Globals.order_pos)
 
 func _process(delta):
@@ -22,7 +27,9 @@ func _process(delta):
 	elif NpcPathfinding.astar.is_point_solid(pathfinding[0]):
 		setpath()
 	else:
-		
+		var fmovement = pathfinding[0] * speed * delta
+		pathfinding.remove_at(0)
+		translate(fmovement)
 	#_movement(delta)
 
 #func _movement(delta):
@@ -42,9 +49,6 @@ func _process(delta):
 		#animations.animation = "Walk_Down"
 	#
 	#translate(smovement)
-
-func new_movement():
-	var move_path = NpcPathfinding.astar.get_id_path(Globals.start_pos, Globals.order_pos, true)
 
 #func set_move_to_target(target : Vector2):
 	#movement.target_position = target
