@@ -4,7 +4,7 @@ extends Node
 var npc_route: Array
 
 #Creates an empty pathfinding grid with the desired settings to be used and changed by NPC pathfinding functions
-func _ready() -> void:
+func _enter_tree() -> void:
 	astar = AStarGrid2D.new()
 	astar.region = Globals.map_bounds
 	astar.cell_size = Vector2(32, 32)
@@ -28,6 +28,7 @@ func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
 		max_y = max(max_y, cell.y)
 	
 	Globals.map_bounds = Rect2i(Vector2i(min_x, min_y), Vector2i(max_x - min_x + 1, max_y - min_y + 1))
+	print(Globals.map_bounds)
 	return Globals.map_bounds
 
 #Scans all TileMapLayers of a scene to fully assemble the list of obstacles on the map

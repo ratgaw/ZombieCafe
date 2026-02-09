@@ -18,7 +18,6 @@ func _ready():
 		setpath()
 	else:
 		return
-	print(pathfinding)
 	#set_move_to_target(Globals.order_pos)
 
 func _process(delta):

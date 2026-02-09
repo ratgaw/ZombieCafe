@@ -1,7 +1,8 @@
 extends Node2D
 
-@onready var game_options_menu: PopupMenu = $"Game Options Menu"
-@onready var floor_layer: TileMapLayer = $"Floor Layer"
+func _init():
+	var game_options_menu: PopupMenu = $"Game Options Menu"
+	@export var floor_layer: TileMapLayer = $"Floor Layer"
 @onready var floor_prop_layer: TileMapLayer = $"Floor Prop Layer"
 @onready var wall_layer: TileMapLayer = $"Wall Layer"
 @onready var wall_ornament_layer: TileMapLayer = $"Wall Ornament Layer"
@@ -11,8 +12,12 @@ extends Node2D
 @onready var astar: AStarGrid2D
 @onready var map_bounds: Rect2i
 
-func _ready():
+func _enter_tree():
 	NpcPathfinding.find_map_bounds(floor_layer)
+	print(Globals.map_bounds)
+
+func _ready():
+	return
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:
