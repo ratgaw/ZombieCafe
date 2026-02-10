@@ -4,7 +4,7 @@ extends Node
 var npc_route: Array
 
 #Creates an empty pathfinding grid with the desired settings to be used and changed by NPC pathfinding functions
-func _enter_tree() -> void:
+func _enter_tree():
 	astar = AStarGrid2D.new()
 	astar.region = Globals.map_bounds
 	astar.cell_size = Vector2(32, 32)
@@ -12,23 +12,46 @@ func _enter_tree() -> void:
 	astar.diagonal_mode = 1
 	astar.jumping_enabled = true
 	astar.update()
+	Globals.start_pos = astar.get_point_position(Globals.start_pos)
+	Globals.order_pos = astar.get_point_position(Globals.order_pos)
 
 #Finds size of map
 func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
 	var used_cells := tilemap.get_used_cells()
 	var min_x := INF
 	var min_y := INF
-	var max_x := -INF
-	var max_y := -INF
+	var min_cx := INF
+	var min_cy := INF
+	var max_cx := -INF
+	var max_cy := -INF
+	var width : int
+	var height : int
 	
 	for cell in used_cells:
-		min_x = min(min_x, cell.x)
-		min_y = min(min_y, cell.y)
-		max_x = max(max_x, cell.x)
-		max_y = max(max_y, cell.y)
+		var loc_pos = tilemap.map_to_local(cell)
+		min_x = min(min_x, loc_pos.x)
+		min_y = min(min_y, loc_pos.y)
+		min_cx = min(min_cx, cell.x)
+		min_cy = min(min_cy, cell.y)
+		max_cx = max(max_cx, cell.x)
+		max_cy = max(max_cy, cell.y)
 	
-	Globals.map_bounds = Rect2i(Vector2i(min_x, min_y), Vector2i(max_x - min_x + 1, max_y - min_y + 1))
-	print(Globals.map_bounds)
+	if min_cx < 0 and max_cx < 0:
+		width = abs(min_cx) - abs(max_cx) 
+	elif min_cx < 0 and max_cx >= 0:
+		width = abs(min_cx) + max_cx + 1
+	else:
+		width = min_cx + max_cx + 1
+	
+	if min_cy < 0 and max_cy < 0:
+		height = abs(min_cy) - abs(max_cy)
+	elif min_cy < 0 and max_cy >= 0:
+		height = abs(min_cy) + max_cy
+	else:
+		height = min_cy + max_cy
+	
+	print(min_x, min_y)
+	Globals.map_bounds = Rect2i(min_x, min_y, width, height)
 	return Globals.map_bounds
 
 #Scans all TileMapLayers of a scene to fully assemble the list of obstacles on the map

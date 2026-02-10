@@ -13,11 +13,14 @@ signal Order_Fulfilled (Order_Fufilled : bool)
 
 
 func _ready():
-	print(Globals.map_bounds)
-	if Globals.map_bounds:	
-		setpath()
+	if Globals.map_bounds == Rect2i():
+		NpcPathfinding.find_map_bounds($"../../Floor Layer")
+		NpcPathfinding.astar.region = Globals.map_bounds
+		NpcPathfinding.astar.update()
+		print(Globals.map_bounds)
+		setpath()	
 	else:
-		return
+		setpath()
 	#set_move_to_target(Globals.order_pos)
 
 func _process(delta):
