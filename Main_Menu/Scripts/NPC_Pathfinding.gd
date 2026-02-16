@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 @onready var astar: AStarGrid2D
 var npc_route: Array
@@ -6,14 +6,12 @@ var npc_route: Array
 #Creates an empty pathfinding grid with the desired settings to be used and changed by NPC pathfinding functions
 func _enter_tree():
 	astar = AStarGrid2D.new()
-	astar.region = Globals.map_bounds
 	astar.cell_size = Vector2(32, 32)
+	astar.region = Globals.map_bounds
 	astar.default_compute_heuristic = 1
 	astar.diagonal_mode = 1
 	astar.jumping_enabled = true
 	astar.update()
-	Globals.start_pos = astar.get_point_position(Globals.start_pos)
-	Globals.order_pos = astar.get_point_position(Globals.order_pos)
 
 #Finds size of map
 func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
@@ -28,29 +26,30 @@ func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
 	var height : int
 	
 	for cell in used_cells:
-		var loc_pos = tilemap.map_to_local(cell)
-		min_x = min(min_x, loc_pos.x)
-		min_y = min(min_y, loc_pos.y)
+		var glo_pos = to_global(tilemap.map_to_local(cell))
+		print(glo_pos)
+		min_x = min(min_x, glo_pos.x)
+		min_y = min(min_y, glo_pos.y)
 		min_cx = min(min_cx, cell.x)
 		min_cy = min(min_cy, cell.y)
 		max_cx = max(max_cx, cell.x)
 		max_cy = max(max_cy, cell.y)
 	
 	if min_cx < 0 and max_cx < 0:
-		width = abs(min_cx) - abs(max_cx) 
+		width = (abs(min_cx) - abs(max_cx)) * 32
 	elif min_cx < 0 and max_cx >= 0:
-		width = abs(min_cx) + max_cx + 1
+		width = (abs(min_cx) + max_cx + 1) * 32
 	else:
-		width = min_cx + max_cx + 1
+		width = (min_cx + max_cx + 1) * 32
 	
 	if min_cy < 0 and max_cy < 0:
-		height = abs(min_cy) - abs(max_cy)
+		height = (abs(min_cy) - abs(max_cy)) * 32
 	elif min_cy < 0 and max_cy >= 0:
-		height = abs(min_cy) + max_cy
+		height = (abs(min_cy) + max_cy) * 32
 	else:
-		height = min_cy + max_cy
+		height = (min_cy + max_cy) * 32
 	
-	print(min_x, min_y)
+	print(astar.cell_size)
 	Globals.map_bounds = Rect2i(min_x, min_y, width, height)
 	return Globals.map_bounds
 

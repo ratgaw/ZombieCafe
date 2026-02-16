@@ -17,43 +17,20 @@ func _ready():
 		NpcPathfinding.find_map_bounds($"../../Floor Layer")
 		NpcPathfinding.astar.region = Globals.map_bounds
 		NpcPathfinding.astar.update()
-		print(Globals.map_bounds)
-		setpath()	
+		setpath()
 	else:
 		setpath()
-	#set_move_to_target(Globals.order_pos)
 
 func _process(delta):
-	if pathfinding == null:
+	if pathfinding.size() == 0:
 		return
-	elif NpcPathfinding.astar.is_point_solid(pathfinding[0]):
+	elif NpcPathfinding.astar.is_point_solid(pathfinding.front()):
 		setpath()
 	else:
+		print(pathfinding)
 		var fmovement = pathfinding[0] * speed * delta
 		pathfinding.remove_at(0)
 		translate(fmovement)
-	#_movement(delta)
-
-#func _movement(delta):
-	#if movement.is_navigation_finished():
-		#return
-	#var mov_pos = movement.get_next_path_position()
-	#var mov_dir = global_position.direction_to(mov_pos)
-	#var smovement = mov_dir * speed * delta
-	#
-	#if smovement.x < 0 && smovement.x < smovement.y:
-		#animations.animation = "Walk_Left"
-	#elif mov_dir.x > 0 && smovement.x > smovement.y:
-		#animations.animation = "Walk_Right"
-	#elif mov_dir.y < 0 && smovement.y < smovement.x:
-		#animations.animation = "Walk_Up"
-	#elif mov_dir.y > 0 && smovement.y > smovement.x:
-		#animations.animation = "Walk_Down"
-	#
-	#translate(smovement)
-
-#func set_move_to_target(target : Vector2):
-	#movement.target_position = target
 
 func setpath():
 	pathfinding = NpcPathfinding.astar.get_id_path(Globals.start_pos, Globals.order_pos, true)
