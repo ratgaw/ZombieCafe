@@ -9,7 +9,7 @@ var unmute = true
 var last_scene = "res://Scenes/main_menu.tscn"
 
 #NPC pathfinding variables
-var order_pos = Vector2i(112, -198)
-var start_pos = Vector2i(-234, -67)
+var order_pos = Vector2i(4, -6)
+var start_pos = Vector2i(-7, -2)
 var obstacles_pos: Array[Vector2i] = []
 var map_bounds: Rect2i

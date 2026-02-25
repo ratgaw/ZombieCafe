@@ -36,20 +36,19 @@ func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
 		max_cy = max(max_cy, cell.y)
 	
 	if min_cx < 0 and max_cx < 0:
-		width = (abs(min_cx) - abs(max_cx)) * 32
+		width = (abs(min_cx) - abs(max_cx))
 	elif min_cx < 0 and max_cx >= 0:
-		width = (abs(min_cx) + max_cx + 1) * 32
+		width = (abs(min_cx) + max_cx + 1)
 	else:
-		width = (min_cx + max_cx + 1) * 32
+		width = (min_cx + max_cx + 1)
 	
 	if min_cy < 0 and max_cy < 0:
-		height = (abs(min_cy) - abs(max_cy)) * 32
+		height = (abs(min_cy) - abs(max_cy))
 	elif min_cy < 0 and max_cy >= 0:
-		height = (abs(min_cy) + max_cy) * 32
+		height = (abs(min_cy) + max_cy)
 	else:
-		height = (min_cy + max_cy) * 32
+		height = (min_cy + max_cy)
 	
-	print(astar.cell_size)
 	Globals.map_bounds = Rect2i(min_x, min_y, width, height)
 	return Globals.map_bounds
 
@@ -60,6 +59,9 @@ func find_map_obs(floor: TileMapLayer, floor_prop: TileMapLayer, wall: TileMapLa
 	obs_value_scan_layer(wall)
 	obs_value_scan_layer(wall_prop)
 	obs_value_scan_layer(ceiling)
+	for obs in Globals.obstacles_pos:
+		astar.set_point_solid(obs)
+		astar.update()
 	return Globals.obstacles_pos
 
 #Updates pathfinding grid based on current map
