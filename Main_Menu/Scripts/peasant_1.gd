@@ -18,21 +18,20 @@ func _ready():
 		NpcPathfinding.astar.region = Globals.map_bounds
 		NpcPathfinding.find_map_obs($"../../Floor Layer", $"../../Floor Prop Layer", $"../../Wall Layer", $"../../Wall Ornament Layer", $"../../Ceiling Layer")
 		NpcPathfinding.astar.update()
-		print(Globals.obstacles_pos)
 		setpath()
 	else:
 		setpath()
 
 func _process(delta):
-	if pathfinding.size() == 0:
-		return
-	elif NpcPathfinding.astar.is_point_solid(pathfinding.front()):
-		setpath()
-	else:
-		print(pathfinding)
-		var fmovement = pathfinding[0] * speed * delta
-		pathfinding.remove_at(0)
-		translate(fmovement)
+	return
+	#if pathfinding.size() == 0:
+		#return
+	#elif NpcPathfinding.astar.is_point_solid(pathfinding.front()):
+		#setpath()
+	#else:
+		#var fmovement = pathfinding[0] * speed * delta
+		#pathfinding.remove_at(0)
+		#translate(fmovement)
 
 func setpath():
 	pathfinding = NpcPathfinding.astar.get_point_path(Globals.start_pos, Globals.order_pos, true)

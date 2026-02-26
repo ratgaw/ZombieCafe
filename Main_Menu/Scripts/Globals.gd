@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 #Volume control variables
 var master_bus = AudioServer.get_bus_index("Master")
