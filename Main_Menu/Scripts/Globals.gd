@@ -13,3 +13,4 @@ var order_pos = Vector2i(4, -6)
 var start_pos = Vector2i(-7, -2)
 var obstacles_pos: Array[Vector2i] = []
 var map_bounds: Rect2i
+var used_cells: Array[Vector2i] = []

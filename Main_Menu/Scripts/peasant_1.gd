@@ -18,6 +18,9 @@ func _ready():
 		NpcPathfinding.astar.region = Globals.map_bounds
 		NpcPathfinding.find_map_obs($"../../Floor Layer", $"../../Floor Prop Layer", $"../../Wall Layer", $"../../Wall Ornament Layer", $"../../Ceiling Layer")
 		NpcPathfinding.astar.update()
+		add_user_signal("map_made")
+		emit_signal("map_made")
+		print("Made map.")
 		setpath()
 	else:
 		setpath()

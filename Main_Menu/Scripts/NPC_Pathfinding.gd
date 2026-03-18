@@ -20,6 +20,7 @@ func _enter_tree():
 
 #Finds size of map
 func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
+	Globals.used_cells = tilemap.get_used_cells()
 	used_cells = tilemap.get_used_cells()
 	for cell in used_cells:
 		glo_pos.append(to_global(tilemap.map_to_local(cell)))
@@ -29,11 +30,10 @@ func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
 	var min_cy := INF
 	var max_cx := -INF
 	var max_cy := -INF
-	_draw()
 	
 	for cell in used_cells:
-		min_x = min(min_x, glo_pos[cell].x)
-		min_y = min(min_y, glo_pos[cell].y)
+		min_x = min(min_x, cell.x)
+		min_y = min(min_y, cell.y)
 		min_cx = min(min_cx, cell.x)
 		min_cy = min(min_cy, cell.y)
 		max_cx = max(max_cx, cell.x)
@@ -56,12 +56,6 @@ func find_map_bounds(tilemap: TileMapLayer) -> Rect2i:
 	Globals.map_bounds = Rect2i(min_x, min_y, width, height)
 	return Globals.map_bounds
 
-func _draw():
-	for cell in glo_pos:
-		var cpos = Vector2i(glo_pos[cell])
-		var rect = Rect2i(cpos.x, cpos.y, 32, 32)
-		draw_rect(rect, Color(0.1, 0.6, 0.8), false, 0.2)
-
 #Scans all TileMapLayers of a scene to fully assemble the list of obstacles on the map
 func find_map_obs(floor: TileMapLayer, floor_prop: TileMapLayer, wall: TileMapLayer, wall_prop: TileMapLayer, ceiling: TileMapLayer) -> Array:
 	obs_value_scan_layer(floor)
@@ -69,6 +63,7 @@ func find_map_obs(floor: TileMapLayer, floor_prop: TileMapLayer, wall: TileMapLa
 	obs_value_scan_layer(wall)
 	obs_value_scan_layer(wall_prop)
 	obs_value_scan_layer(ceiling)
+	astar.update()
 	for obs in Globals.obstacles_pos:
 		astar.set_point_solid(obs)
 		astar.update()

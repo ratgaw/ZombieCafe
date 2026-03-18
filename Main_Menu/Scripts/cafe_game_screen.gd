@@ -12,7 +12,13 @@ extends Node2D
 @onready var map_bounds: Rect2i
 
 func _ready():
-	return
+	print("Game screen booted, but didn't draw.")
+	await "map_made"
+	for cell in Globals.used_cells:
+		var cpos = Vector2i(cell)
+		var rect = Rect2i(cpos.x, cpos.y, 32, 32)
+		draw_rect(rect, Color(0.1, 0.6, 0.8), false, 0.2)
+	print("Game screen should have finished drawing grid.")
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:
