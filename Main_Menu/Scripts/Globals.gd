@@ -8,9 +8,11 @@ var unmute = true
 #Screen tracking
 var last_scene = "res://Scenes/main_menu.tscn"
 
-#NPC pathfinding variables
-var order_pos = Vector2i(4, -6)
-var start_pos = Vector2i(-7, -2)
-var obstacles_pos: Array[Vector2i] = []
-var map_bounds: Rect2i
-var used_cells: Array[Vector2i] = []
+#Pathfinding variables for NPC pathfinding
+var map_region : Rect2i
+
+#Initial empty grid created for pathfinding
+func _enter_tree():
+	var astar_map = AStarGrid2D.new()
+	astar_map.region = map_region
+	astar_map.update()

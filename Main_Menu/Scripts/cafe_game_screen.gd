@@ -7,18 +7,32 @@ extends Node2D
 @onready var wall_ornament_layer: TileMapLayer = $"Wall Ornament Layer"
 @onready var ceiling_layer: TileMapLayer = $"Ceiling Layer"
 @onready var peasant_scene = preload("res://Scenes/peasant_1.tscn")
-@onready var order_station_marker: Marker2D = $"Order Station Marker"
-@onready var astar: AStarGrid2D
-@onready var map_bounds: Rect2i
+@onready var obs_list : Array
+@onready var used_tiles : Array
+signal grid_made
 
 func _ready():
-	print("Game screen booted, but didn't draw.")
-	await "map_made"
-	for cell in Globals.used_cells:
-		var cpos = Vector2i(cell)
-		var rect = Rect2i(cpos.x, cpos.y, 32, 32)
-		draw_rect(rect, Color(0.1, 0.6, 0.8), false, 0.2)
-	print("Game screen should have finished drawing grid.")
+	#scan_layer(floor_layer)
+	scan_layer(wall_layer)
+	print(obs_list)
+	if obs_list.is_empty():
+		emit_signal("grid_made")
+	await grid_made
+	print("Grid signal emitted correctly.")
+	
+#Function scans TileMapLayer for all used tiles & looks for any labelled as an obstacle, returns list of used tile positions
+func scan_layer(layer: TileMapLayer) -> Array:
+	used_tiles = layer.get_used_cells()
+	if layer == floor_layer:
+		print("Used floor layer.")
+		return used_tiles
+	else:
+		print("Didn't use floor layer.")
+		for tile in used_tiles:
+			var tile_pos = layer.get_cell_tile_data(tile)
+			if tile_pos.get_custom_data("Obstacle"):
+				obs_list.append(tile)
+		return used_tiles
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:
