@@ -12,27 +12,49 @@ extends Node2D
 signal grid_made
 
 func _ready():
-	#scan_layer(floor_layer)
-	scan_layer(wall_layer)
-	print(obs_list)
+	#Currently test code for drawing a grid over the floor layer
+	grid_made.connect(_grid_sig_ex)
+	getfloor_scanobs()
+	queue_redraw()
 	if obs_list.is_empty():
-		emit_signal("grid_made")
-	await grid_made
-	print("Grid signal emitted correctly.")
-	
-#Function scans TileMapLayer for all used tiles & looks for any labelled as an obstacle, returns list of used tile positions
-func scan_layer(layer: TileMapLayer) -> Array:
-	used_tiles = layer.get_used_cells()
-	if layer == floor_layer:
-		print("Used floor layer.")
-		return used_tiles
+		print("Function doesn't work right.")
 	else:
-		print("Didn't use floor layer.")
-		for tile in used_tiles:
-			var tile_pos = layer.get_cell_tile_data(tile)
-			if tile_pos.get_custom_data("Obstacle"):
-				obs_list.append(tile)
-		return used_tiles
+		grid_made.emit()
+
+#Test code for drawing grid over floor tiles
+func _draw():
+	for tile in used_tiles:
+		print(tile)
+		draw_rect(Rect2(tile.x, tile.y, 32, 32), Color(0.2, 0.8, 0.2), true, -1.0)
+
+#Test code activated by signal
+func _grid_sig_ex():
+	print("Grid signal emitted correctly, also there's obstacles.")
+	
+#Scans all layers to find floor tiles and all tiles marked as obstacles in other layers, returns floor pos list
+func getfloor_scanobs() -> Array:
+	used_tiles = floor_layer.get_used_cells()
+	var obs_tiles = floor_prop_layer.get_used_cells()
+	for tile in obs_tiles:
+		var tile_pos = floor_prop_layer.get_cell_tile_data(tile)
+		if tile_pos.get_custom_data("Obstacle"):
+			obs_list.append(tile)
+	obs_tiles = wall_layer.get_used_cells()
+	for tile in obs_tiles:
+		var tile_pos = wall_layer.get_cell_tile_data(tile)
+		if tile_pos.get_custom_data("Obstacle"):
+			obs_list.append(tile)
+	obs_tiles = wall_ornament_layer.get_used_cells()
+	for tile in obs_tiles:
+		var tile_pos = wall_ornament_layer.get_cell_tile_data(tile)
+		if tile_pos.get_custom_data("Obstacle"):
+			obs_list.append(tile)
+	obs_tiles = ceiling_layer.get_used_cells()
+	for tile in obs_tiles:
+		var tile_pos = ceiling_layer.get_cell_tile_data(tile)
+		if tile_pos.get_custom_data("Obstacle"):
+			obs_list.append(tile)
+	return used_tiles
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:
