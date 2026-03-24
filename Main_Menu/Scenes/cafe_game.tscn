@@ -14,7 +14,7 @@ script = ExtResource("1_4hync")
 position = Vector2(-234, -67)
 
 [node name="Order Station Marker2" type="Marker2D" parent="."]
-position = Vector2(-352, 96)
+position = Vector2(-352, -208)
 
 [node name="Entrance Marker" type="Marker2D" parent="."]
 position = Vector2(112, -198)
