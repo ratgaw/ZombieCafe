@@ -15,17 +15,10 @@ func _ready():
 	#Currently test code for drawing a grid over the floor layer
 	grid_made.connect(_grid_sig_ex)
 	getfloor_scanobs()
-	queue_redraw()
 	if obs_list.is_empty():
 		print("Function doesn't work right.")
 	else:
 		grid_made.emit()
-
-#Test code for drawing grid over floor tiles
-func _draw():
-	for tile in used_tiles:
-		print(tile)
-		draw_rect(Rect2(tile.x, tile.y, 32, 32), Color(0.2, 0.8, 0.2), true, -1.0)
 
 #Test code activated by signal
 func _grid_sig_ex():
