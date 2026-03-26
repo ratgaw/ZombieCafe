@@ -9,20 +9,18 @@ extends Node2D
 @onready var peasant_scene = preload("res://Scenes/peasant_1.tscn")
 @onready var obs_list : Array
 @onready var used_tiles : Array
+@onready var used_pos : Array
 signal grid_made
 
 func _ready():
 	#Currently test code for drawing a grid over the floor layer
 	grid_made.connect(_grid_sig_ex)
-	getfloor_scanobs()
-	if obs_list.is_empty():
-		print("Function doesn't work right.")
-	else:
-		grid_made.emit()
+	_gen_map()
+	grid_made.emit()
 
 #Test code activated by signal
 func _grid_sig_ex():
-	print("Grid signal emitted correctly, also there's obstacles.")
+	print("Signal Emitted")
 	
 #Scans all layers to find floor tiles and all tiles marked as obstacles in other layers, returns floor pos list
 func getfloor_scanobs() -> Array:
@@ -48,6 +46,33 @@ func getfloor_scanobs() -> Array:
 		if tile_pos.get_custom_data("Obstacle"):
 			obs_list.append(tile)
 	return used_tiles
+
+func _gen_map():
+	getfloor_scanobs()
+	for tile in used_tiles:
+		var glo_pos = floor_layer.map_to_local(tile)
+		glo_pos.x = glo_pos.x - 16
+		used_pos.append(glo_pos)
+	var topl = used_tiles[0]
+	var botr = used_tiles[0]
+	var length : int
+	var height : int
+	if topl.x < 0 && botr.x < 0:
+		length = abs(topl.x + botr.x)
+	elif topl.x < 0 && botr.x >= 0:
+		length = abs(topl.x) + botr.x
+	elif topl.x >= 0 && botr.x < 0:
+		length = topl.x + abs(botr.x)
+	else:
+		length = topl.x + botr.x
+	if topl.y < 0 && botr.x < 0:
+		length = abs(topl.x + botr.x)
+	elif topl.x < 0 && botr.x >= 0:
+		length = abs(topl.x) + botr.x
+	elif topl.x >= 0 && botr.x < 0:
+		length = topl.x + abs(botr.x)
+	else:
+		length = topl.x + botr.x
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:
