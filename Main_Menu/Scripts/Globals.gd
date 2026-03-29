@@ -9,10 +9,13 @@ var unmute = true
 var last_scene = "res://Scenes/main_menu.tscn"
 
 #Pathfinding variables for NPC pathfinding
+var astar_map 
 var map_region : Rect2i
+var length : int
+var height : int
 
 #Initial empty grid created for pathfinding
 func _enter_tree():
-	var astar_map = AStarGrid2D.new()
+	astar_map = AStarGrid2D.new()
 	astar_map.region = map_region
 	astar_map.update()
