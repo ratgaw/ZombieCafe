@@ -18,4 +18,5 @@ var height : int
 func _enter_tree():
 	astar_map = AStarGrid2D.new()
 	astar_map.region = map_region
+	astar_map.set_cell_size(Vector2(32, 32))
 	astar_map.update()

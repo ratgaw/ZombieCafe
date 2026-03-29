@@ -10,24 +10,25 @@ func _ready() -> void:
 
 #Controls Game Options Menu options 
 func _on_index_pressed(index: int) -> void:
-	if index == 0:
-		#Takes user back to main menu
-		Globals.last_scene = get_tree().current_scene.scene_file_path
-		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-	if index == 1:
-		#Takes user to settings menu
-		Globals.last_scene = get_tree().current_scene.scene_file_path
-		get_tree().change_scene_to_file("res://Scenes/settings_menu.tscn")
-		#Quickly mutes and un-mutes master volume, resetting volume to default of 50% should volume be muted then unmuted
-	if index == 2:
-		toggle_item_checked(2)
-		if is_item_checked(2):
-			Globals.unmute = true
+
+	match index:
+#Takes user back to main menu
+		0:
+			Globals.last_scene = get_tree().current_scene.scene_file_path
+			get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+#Takes user to settings menu
+		1:
+			Globals.last_scene = get_tree().current_scene.scene_file_path
+			get_tree().change_scene_to_file("res://Scenes/settings_menu.tscn")
+#Quickly mutes and un-mutes master volume, resetting volume to default of 50% should volume be muted then unmuted
+		2:
+			toggle_item_checked(2)
+			if is_item_checked(2):
+				Globals.unmute = true
 			if Globals.music_volume == 0:
 				Globals.music_volume = 0.5
 				AudioServer.set_bus_volume_linear(Globals.master_bus,Globals.music_volume)
-		else:
-			AudioServer.set_bus_volume_linear(Globals.master_bus,0)
-			Globals.music_volume = 0
-			Globals.unmute = false
-		
+			else:
+				AudioServer.set_bus_volume_linear(Globals.master_bus,0)
+				Globals.music_volume = 0
+				Globals.unmute = false
