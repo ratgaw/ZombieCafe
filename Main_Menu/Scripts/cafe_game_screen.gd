@@ -6,6 +6,7 @@ extends Node2D
 @onready var wall_layer: TileMapLayer = $"Wall Layer"
 @onready var wall_ornament_layer: TileMapLayer = $"Wall Ornament Layer"
 @onready var ceiling_layer: TileMapLayer = $"Ceiling Layer"
+@onready var peasant: Peasant_1 = $"Customer Area/Peasant1"
 @onready var peasant_scene = preload("res://Scenes/peasant_1.tscn")
 @onready var obs_list : Array
 @onready var used_tiles : Array
@@ -13,14 +14,10 @@ extends Node2D
 signal grid_made
 
 func _ready():
-	#Currently test code for drawing a grid over the floor layer
-	grid_made.connect(_grid_sig_ex)
+	#Currently test code for connecting signal to child node for NPC pathfinding
+	grid_made.connect(peasant._pathfind)
 	_gen_map()
 	grid_made.emit()
-
-#Test code activated by signal
-func _grid_sig_ex():
-	print("Signal Emitted")
 	
 #Scans all layers to find floor tiles and all tiles marked as obstacles in other layers, returns floor pos list
 func getfloor_scanobs() -> Array:
@@ -64,7 +61,6 @@ func _gen_map():
 		if Globals.astar_map.is_in_boundsv(obs):
 			Globals.astar_map.set_point_solid(obs)
 			Globals.astar_map.update()
-	print(Globals.map_region)
 
 #Activates popup options menu
 func _input(menu_popup: InputEvent) -> void:

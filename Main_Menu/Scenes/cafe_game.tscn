@@ -58,7 +58,7 @@ rendering_quadrant_size = 32
 [node name="Customer Area" type="Area2D" parent="."]
 
 [node name="Peasant1" parent="Customer Area" instance=ExtResource("5_0ja1t")]
-position = Vector2(-65, -67)
+position = Vector2(112, -198)
 speed = 50.0
 
 [node name="TopDownCamera" type="Camera2D" parent="Customer Area/Peasant1"]
