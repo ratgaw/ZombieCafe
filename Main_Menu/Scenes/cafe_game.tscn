@@ -62,6 +62,7 @@ position = Vector2(112, -208)
 
 [node name="TopDownCamera" type="Camera2D" parent="Customer Area/Peasant1"]
 position = Vector2(65, 19)
+zoom = Vector2(2, 2)
 editor_draw_limits = true
 
 [node name="Game Options Menu" type="PopupMenu" parent="."]
