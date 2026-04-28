@@ -8,23 +8,25 @@ class_name Peasant_1
 @onready var trigger = false
 @onready var max_speed
 @onready var last_direction
+@onready var cur_animation
 
 
 #speed for test player movement function
-@export var speed: float = 100.0
+@export var speed: float = 75.0
 
 func _ready():
 	return
 
+#Helper function used to calculate NPC path
 func _pathfind():
 	movepath = Globals.astar_map.get_point_path(Vector2i(3, -7), Vector2i(-8,-3))
-	print(movepath)
 
+#Helper function used to find direction and distance to next point in pathfinding list
 func _movement(next_pos : Vector2i):
-	
 	direction = global_transform.origin.direction_to(next_pos)
 	distance = global_transform.origin.distance_to(next_pos)
 
+#Controls walking animation of peasant based on direction
 func _play_animation(adirection : Vector2):
 	if last_direction == null:
 		last_direction = adirection
@@ -33,9 +35,11 @@ func _play_animation(adirection : Vector2):
 				-1.0:
 					animations.stop()
 					animations.play("Walk_Left")
+					cur_animation = "Walk_Left"
 				1.0:
 					animations.stop()
 					animations.play("Walk_Right")
+					cur_animation = "Walk_Right"
 				0.0:
 					push_error("X direction cannot equal direction y for this animation argument to prompt.")
 		elif abs(adirection.x) <= abs(adirection.y):
@@ -43,14 +47,24 @@ func _play_animation(adirection : Vector2):
 				-1.0:
 					animations.stop()
 					animations.play("Walk_Up")
+					cur_animation = "Walk_Up"
 				1.0:
 					animations.stop()
 					animations.play("Walk_Down")
+					cur_animation = "Walk_Down"
 				0.0:
 					animations.stop()
-					animations.play("Idle_Front")
-	elif last_direction == adirection:
-		last_direction = adirection
+					match cur_animation:
+						"Walk_Left":
+							animations.play("Idle_Left")
+						"Walk_Right":
+							animations.play("Idle_Right")
+						"Walk_Down":
+							animations.play("Idle_Front")
+						"Walk_Up":
+							animations.play("Idle_Back")
+	elif last_direction.is_equal_approx(adirection):
+		return
 	else:
 		last_direction = adirection
 		if abs(adirection.x) > abs(adirection.y):
@@ -58,9 +72,11 @@ func _play_animation(adirection : Vector2):
 				-1.0:
 					animations.stop()
 					animations.play("Walk_Left")
+					cur_animation = "Walk_Left"
 				1.0:
 					animations.stop()
 					animations.play("Walk_Right")
+					cur_animation = "Walk_Right"
 				0.0:
 					push_error("X direction cannot equal direction y for this animation argument to prompt.")
 		elif abs(adirection.x) <= abs(adirection.y):
@@ -68,12 +84,22 @@ func _play_animation(adirection : Vector2):
 				-1.0:
 					animations.stop()
 					animations.play("Walk_Up")
+					cur_animation = "Walk_Up"
 				1.0:
 					animations.stop()
 					animations.play("Walk_Down")
+					cur_animation = "Walk_Down"
 				0.0:
 					animations.stop()
-					animations.play("Idle_Front")
+					match cur_animation:
+						"Walk_Left":
+							animations.play("Idle_Left")
+						"Walk_Right":
+							animations.play("Idle_Right")
+						"Walk_Down":
+							animations.play("Idle_Front")
+						"Walk_Up":
+							animations.play("Idle_Back")
 
 #Controls NPC movement, not doing anything until a pathfinding path is populated, 
 # then calculating most efficient path once and moves, playing movement animation,
