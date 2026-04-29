@@ -62,12 +62,10 @@ tile_map_data = PackedByteArray("AAAOAPf/AQAJAAAAAAD0//f/AQAHAAAAAAD0//j/AQAHAAE
 tile_set = ExtResource("1_aygtp")
 rendering_quadrant_size = 32
 
-[node name="Customer Area" type="Area2D" parent="."]
-
-[node name="Peasant1" parent="Customer Area" instance=ExtResource("5_0ja1t")]
+[node name="Peasant1" parent="." instance=ExtResource("5_0ja1t")]
 position = Vector2(112, -208)
 
-[node name="TopDownCamera" type="Camera2D" parent="Customer Area/Peasant1"]
+[node name="TopDownCamera" type="Camera2D" parent="Peasant1"]
 position = Vector2(65, 19)
 zoom = Vector2(2, 2)
 editor_draw_limits = true

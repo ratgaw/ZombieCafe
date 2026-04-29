@@ -10,12 +10,14 @@ class_name Peasant_1
 @onready var last_direction
 @onready var cur_animation
 
-
 #speed for test player movement function
 @export var speed: float = 75.0
 
 func _ready():
-	return
+	if get_parent().map_sig == true:
+		_pathfind()
+	else:
+		return
 
 #Helper function used to calculate NPC path
 func _pathfind():
@@ -26,7 +28,7 @@ func _movement(next_pos : Vector2i):
 	direction = global_transform.origin.direction_to(next_pos)
 	distance = global_transform.origin.distance_to(next_pos)
 
-#Controls walking animation of peasant based on direction
+#Controls movement animation of peasant based on direction
 func _play_animation(adirection : Vector2):
 	if last_direction == null:
 		last_direction = adirection
