@@ -13,8 +13,11 @@ var astar_map
 var map_region : Rect2i
 var length : int
 var height : int
+var entrance := Vector2i(3, -7)
+var order := Vector2i(-8, -3)
+var ordered := Vector2i(13, -2)
 
-#Initial empty grid created for pathfinding
+#Initial empty grid created for NPC pathfinding
 func _enter_tree():
 	astar_map = AStarGrid2D.new()
 	astar_map.region = map_region

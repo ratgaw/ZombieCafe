@@ -14,10 +14,12 @@ extends Node2D
 @onready var used_pos : Array
 @onready var map_sig : bool = false
 signal grid_made
+signal order_made
 
 func _ready():
 	#Currently test code for connecting signal to child node for NPC pathfinding
 	grid_made.connect(peasant._pathfind)
+	order_made.connect(peasant._order_pathfind)
 	_gen_map()
 	grid_made.emit()
 	map_sig = true
@@ -76,9 +78,11 @@ func _gen_map():
 			Globals.astar_map.update()
 
 #Activates popup options menu
-func _input(menu_popup: InputEvent) -> void:
-	if menu_popup.is_action_pressed("options_menu"):
-		game_options_menu.popup(Rect2i(0,0,300,100))
+func _input(user_input: InputEvent) -> void:
+	if user_input.is_action_pressed("options_menu"):
+			game_options_menu.popup(Rect2i(0,0,300,100))
+	if user_input.is_action_pressed("test_order"):
+			order_made.emit()
 
 func _gen_peasant():
 	var new_peasant = peasant1.instantiate()

@@ -21,9 +21,18 @@ func _ready():
 
 #Helper function used to calculate NPC path
 func _pathfind():
-	movepath = Globals.astar_map.get_point_path(Vector2i(3, -7), Vector2i(-8,-3))
+	movepath = Globals.astar_map.get_point_path(Globals.entrance, Globals.order)
 	movepath[1].x += 16
 	movepath[1].y += 16
+
+func _order_pathfind():
+	if len(movepath) < 2:
+		line_wait = false
+		movepath = Globals.astar_map.get_point_path(Globals.order, Globals.ordered)
+		movepath[1].x += 16
+		movepath[1].y += 16
+	else:
+		print("NPC not front of line yet.")
 
 #Helper function used to find direction and distance to next point in pathfinding list
 func _movement(next_pos : Vector2i):
