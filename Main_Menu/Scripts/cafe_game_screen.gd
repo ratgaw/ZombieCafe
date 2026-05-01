@@ -23,7 +23,7 @@ func _ready():
 	map_sig = true
 	var ttimer = Timer.new()
 	add_child(ttimer)
-	ttimer.wait_time = 5.0
+	ttimer.wait_time = 3.0
 	ttimer.timeout.connect(_gen_peasant)
 	ttimer.start()
 	

@@ -5,10 +5,10 @@ class_name Peasant_1
 @onready var movepath: Array
 @onready var direction
 @onready var distance
-@onready var trigger = false
 @onready var max_speed
 @onready var last_direction
-@onready var cur_animation
+@onready var cur_animation = "Idle_Front"
+@onready var line_wait: bool = false
 
 #speed for test player movement function
 @export var speed: float = 75.0
@@ -22,6 +22,8 @@ func _ready():
 #Helper function used to calculate NPC path
 func _pathfind():
 	movepath = Globals.astar_map.get_point_path(Vector2i(3, -7), Vector2i(-8,-3))
+	movepath[1].x += 16
+	movepath[1].y += 16
 
 #Helper function used to find direction and distance to next point in pathfinding list
 func _movement(next_pos : Vector2i):
@@ -30,6 +32,28 @@ func _movement(next_pos : Vector2i):
 
 #Controls movement animation of peasant based on direction
 func _play_animation(adirection : Vector2):
+	#Handles animiations for waiting in line
+	if line_wait == true:
+		match cur_animation:
+			"Walk_Left":
+				animations.stop()
+				animations.play("Idle_Left")
+				cur_animation = "Idle_left"
+			"Walk_Right":
+				animations.stop()
+				animations.play("Idle_Right")
+				cur_animation = "Idle_Right"
+			"Walk_Down":
+				animations.stop()
+				animations.play("Idle_Front")
+				cur_animation = "Idle_Front"
+			"Walk_Up":
+				animations.stop()
+				animations.play("Idle_Back")
+				cur_animation = "Idle_Back"
+			_:
+				return
+				
 	if last_direction == null:
 		last_direction = adirection
 		if abs(adirection.x) > abs(adirection.y):
@@ -104,29 +128,22 @@ func _play_animation(adirection : Vector2):
 							animations.play("Idle_Back")
 
 #Controls NPC movement, not doing anything until a pathfinding path is populated, 
-# then calculating most efficient path once and moves, playing movement animation,
-# stops moving once path end is reached
+# plays movement animation, handles collision with other NPCS, and stops moving once path end is reached
 func _physics_process(delta: float) -> void:
 	if movepath.is_empty():
 		return
-	elif trigger == false:
-		_pathfind()
-		movepath[1].x += 16
-		movepath[1].y += 16
-		_movement(movepath[1])
-		max_speed = (distance / delta)
-		velocity = direction * minf(speed, max_speed)
+	elif line_wait == true:
 		_play_animation(direction)
-		move_and_slide()
-		trigger = true
 	elif len(movepath) < 2:
 		direction = Vector2(0.0, 0.0)
 		_play_animation(direction)
 	else:
 		_movement(movepath[1])
-		velocity = direction * minf(speed, max_speed)
+		velocity = direction * speed
 		_play_animation(direction)
-		move_and_slide()
+		var collision = move_and_collide(velocity * delta)
+		if collision:
+			line_wait = true
 		if distance < 1.5:
 			movepath.pop_front()
 			if len(movepath) > 1:
