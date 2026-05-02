@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Peasant_1
 
+@onready var peasant_1: Peasant_1 = $"."
 @onready var animations: AnimatedSprite2D = $Animations
 @onready var movepath: Array
 @onready var direction
@@ -8,12 +9,15 @@ class_name Peasant_1
 @onready var max_speed
 @onready var last_direction
 @onready var cur_animation = "Idle_Front"
-@onready var line_wait: bool = false
+@onready var in_line: bool = false
+@onready var last_bump
+@onready var parent = get_parent()
 
 #speed for test player movement function
 @export var speed: float = 75.0
 
 func _ready():
+	parent.order_made.connect(_order)
 	if get_parent().map_sig == true:
 		_pathfind()
 	else:
@@ -25,14 +29,12 @@ func _pathfind():
 	movepath[1].x += 16
 	movepath[1].y += 16
 
-func _order_pathfind():
+#Test function to get rid of NPC after ordering
+func _order():
 	if len(movepath) < 2:
-		line_wait = false
-		movepath = Globals.astar_map.get_point_path(Globals.order, Globals.ordered)
-		movepath[1].x += 16
-		movepath[1].y += 16
+		queue_free()
 	else:
-		print("NPC not front of line yet.")
+		print("NPC hasn't ordered.")
 
 #Helper function used to find direction and distance to next point in pathfinding list
 func _movement(next_pos : Vector2i):
@@ -42,7 +44,7 @@ func _movement(next_pos : Vector2i):
 #Controls movement animation of peasant based on direction
 func _play_animation(adirection : Vector2):
 	#Handles animiations for waiting in line
-	if line_wait == true:
+	if in_line == true:
 		match cur_animation:
 			"Walk_Left":
 				animations.stop()
@@ -141,18 +143,27 @@ func _play_animation(adirection : Vector2):
 func _physics_process(delta: float) -> void:
 	if movepath.is_empty():
 		return
-	elif line_wait == true:
+	elif in_line == true:
 		_play_animation(direction)
+		if is_instance_valid(last_bump) == false:
+			in_line = false
+		elif peasant_1.global_position.distance_to(last_bump.global_position) >= 17:
+			in_line = false
 	elif len(movepath) < 2:
 		direction = Vector2(0.0, 0.0)
 		_play_animation(direction)
+		in_line = true
 	else:
 		_movement(movepath[1])
 		velocity = direction * speed
 		_play_animation(direction)
 		var collision = move_and_collide(velocity * delta)
 		if collision:
-			line_wait = true
+			var NPC_ID = collision.get_collider_id()
+			NPC_ID = instance_from_id(NPC_ID)
+			if NPC_ID.in_line == true:
+				in_line = true
+				last_bump = NPC_ID
 		if distance < 1.5:
 			movepath.pop_front()
 			if len(movepath) > 1:

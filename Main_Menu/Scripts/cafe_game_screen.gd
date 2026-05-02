@@ -19,7 +19,7 @@ signal order_made
 func _ready():
 	#Currently test code for connecting signal to child node for NPC pathfinding
 	grid_made.connect(peasant._pathfind)
-	order_made.connect(peasant._order_pathfind)
+	order_made.connect(peasant._order)
 	_gen_map()
 	grid_made.emit()
 	map_sig = true
