@@ -11,6 +11,8 @@ class_name Peasant_1
 @onready var cur_animation = "Idle_Front"
 @onready var in_line: bool = false
 @onready var last_bump
+@onready var NPC_in_front
+@onready var bump_angle
 @onready var parent = get_parent()
 
 #speed for test player movement function
@@ -38,6 +40,7 @@ func _order():
 	else:
 		print("------")
 		print("NPC: ", peasant_1.get_instance_id(), " - In line status: ", in_line)
+		print("NPC last collided with: ", last_bump)
 
 #Helper function used to find direction and distance to next point in pathfinding list
 func _movement(next_pos : Vector2i):
@@ -148,9 +151,9 @@ func _physics_process(delta: float) -> void:
 		return
 	elif in_line == true:
 		_play_animation(direction)
-		if is_instance_valid(last_bump) == false:
+		if is_instance_valid(NPC_in_front) == false:
 			in_line = false
-		elif peasant_1.global_position.distance_to(last_bump.global_position) >= 20:
+		elif peasant_1.global_position.distance_to(NPC_in_front.global_position) >= 20:
 			in_line = false
 	elif len(movepath) < 2:
 		direction = Vector2(0.0, 0.0)
@@ -164,9 +167,12 @@ func _physics_process(delta: float) -> void:
 		if collision:
 			var NPC_ID = collision.get_collider_id()
 			NPC_ID = instance_from_id(NPC_ID)
-			if NPC_ID.in_line == true:
+			last_bump = NPC_ID
+			bump_angle = collision.get_angle()
+			var tol = abs(bump_angle - 1.5)
+			if NPC_ID.in_line == true && tol < 0.2:
 				in_line = true
-				last_bump = NPC_ID
+				NPC_in_front = NPC_ID
 		if distance < 1.5:
 			movepath.pop_front()
 			if len(movepath) > 1:
