@@ -32,9 +32,12 @@ func _pathfind():
 #Test function to get rid of NPC after ordering
 func _order():
 	if len(movepath) < 2:
+		print("VVVVVV")
+		print("NPC: ", peasant_1.get_instance_id(), " removed.")
 		queue_free()
 	else:
-		print("NPC hasn't ordered.")
+		print("------")
+		print("NPC: ", peasant_1.get_instance_id(), " - In line status: ", in_line)
 
 #Helper function used to find direction and distance to next point in pathfinding list
 func _movement(next_pos : Vector2i):
@@ -147,7 +150,7 @@ func _physics_process(delta: float) -> void:
 		_play_animation(direction)
 		if is_instance_valid(last_bump) == false:
 			in_line = false
-		elif peasant_1.global_position.distance_to(last_bump.global_position) >= 17:
+		elif peasant_1.global_position.distance_to(last_bump.global_position) >= 20:
 			in_line = false
 	elif len(movepath) < 2:
 		direction = Vector2(0.0, 0.0)
