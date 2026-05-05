@@ -12,12 +12,16 @@ extends Node2D
 @onready var obs_list : Array
 @onready var used_tiles : Array
 @onready var used_pos : Array
+@onready var chair_list : Array
+@onready var chair_pos : Array
 @onready var map_sig : bool = false
 signal grid_made
 signal order_made
 
+#Connects order and map genration signals to NPC on scene start, generates map for NPC pathfinding use
+# and sends signal that map has been generated to NPCs
+#Currently spawns a new peasant NPC every 3 seconds
 func _ready():
-	#Currently test code for connecting signal to child node for NPC pathfinding
 	grid_made.connect(peasant._pathfind)
 	order_made.connect(peasant._order)
 	_gen_map()
@@ -32,16 +36,22 @@ func _ready():
 #Scans all layers to find floor tiles and all tiles marked as obstacles in other layers, returns floor pos list
 func getfloor_scanobs() -> Array:
 	used_tiles = floor_layer.get_used_cells()
+	#Scans floor prop & overshadow prop layer for locations of used cells then adds those marked
+	# as obstacles or chairs to their respective lists
 	var obs_tiles = floor_prop_layer.get_used_cells()
 	for tile in obs_tiles:
 		var tile_dat = floor_prop_layer.get_cell_tile_data(tile)
 		if tile_dat.get_custom_data("Obstacle"):
 			obs_list.append(Vector2i(tile))
+		elif tile_dat.get_custom_data("Chair"):
+			chair_list.append(Vector2i(tile))
 	obs_tiles = overshadow_prop_layer.get_used_cells()
 	for tile in obs_tiles:
 		var tile_dat = overshadow_prop_layer.get_cell_tile_data(tile)
 		if tile_dat.get_custom_data("Obstacle"):
 			obs_list.append(Vector2i(tile))
+		elif tile_dat.get_custom_data("Chair"):
+			chair_list.append(Vector2i(tile))
 	obs_tiles = wall_layer.get_used_cells()
 	for tile in obs_tiles:
 		var tile_dat = wall_layer.get_cell_tile_data(tile)
@@ -62,11 +72,21 @@ func getfloor_scanobs() -> Array:
 #Generates AstarGrid2D with size of floor layer and marks obstacles for pathfinding functions
 func _gen_map():
 	getfloor_scanobs()
-#Creates list of tile positions in global position notation and corrects rounding issues, currently has no use
+#Creates list of tile positions in global position notation and corrects rounding issues, used for grid drawing
 	for tile in used_tiles:
 		var glo_pos = floor_layer.map_to_local(tile)
 		glo_pos.x = glo_pos.x - 16
 		used_pos.append(glo_pos)
+
+	for chair in chair_list:
+		if floor_prop_layer.get_cell_source_id(chair) == -1:
+			var glo_pos = overshadow_prop_layer.map_to_local(chair)
+			glo_pos.x = glo_pos.x - 16
+			chair_pos.append(glo_pos)
+		else:
+			var glo_pos = floor_prop_layer.map_to_local(chair)
+			glo_pos.x = glo_pos.x - 16
+			chair_pos.append(glo_pos)
 #Sets map region to the size of the floor
 	Globals.map_region = floor_layer.get_used_rect()
 	Globals.astar_map.region = Globals.map_region
@@ -84,6 +104,7 @@ func _input(user_input: InputEvent) -> void:
 	if user_input.is_action_pressed("test_order"):
 			order_made.emit()
 
+#Generates new peasant at the front entrance
 func _gen_peasant():
 	var new_peasant = peasant1.instantiate()
 	new_peasant.position = Vector2(112, -208)
