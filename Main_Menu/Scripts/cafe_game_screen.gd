@@ -7,7 +7,6 @@ extends Node2D
 @onready var wall_layer: TileMapLayer = $"Wall Layer"
 @onready var wall_ornament_layer: TileMapLayer = $"Wall Ornament Layer"
 @onready var ceiling_layer: TileMapLayer = $"Ceiling Layer"
-@onready var peasant: Peasant_1 = $Peasant1
 @onready var peasant1 = preload("res://Scenes/peasant_1.tscn")
 @onready var obs_list : Array
 @onready var used_tiles : Array
@@ -15,17 +14,17 @@ extends Node2D
 @onready var chair_list : Array
 @onready var chair_pos : Array
 @onready var map_sig : bool = false
-signal grid_made
+@onready var map_origin
+@onready var line
 signal order_made
+signal draw_grid
 
 #Connects order and map genration signals to NPC on scene start, generates map for NPC pathfinding use
 # and sends signal that map has been generated to NPCs
 #Currently spawns a new peasant NPC every 3 seconds
 func _ready():
-	grid_made.connect(peasant._pathfind)
-	order_made.connect(peasant._order)
+	draw_grid.connect($grid_draw._draw)
 	_gen_map()
-	grid_made.emit()
 	map_sig = true
 	var ttimer = Timer.new()
 	add_child(ttimer)
@@ -36,6 +35,7 @@ func _ready():
 #Scans all layers to find floor tiles and all tiles marked as obstacles in other layers, returns floor pos list
 func getfloor_scanobs() -> Array:
 	used_tiles = floor_layer.get_used_cells()
+	map_origin = Vector2(used_tiles[0].x * 32, used_tiles[0].y * 32)
 	#Scans floor prop & overshadow prop layer for locations of used cells then adds those marked
 	# as obstacles or chairs to their respective lists
 	var obs_tiles = floor_prop_layer.get_used_cells()
@@ -103,6 +103,8 @@ func _input(user_input: InputEvent) -> void:
 			game_options_menu.popup(Rect2i(0,0,300,100))
 	if user_input.is_action_pressed("test_order"):
 			order_made.emit()
+	if user_input.is_action_pressed("Display Grid"):
+		draw_grid.emit()
 
 #Generates new peasant at the front entrance
 func _gen_peasant():

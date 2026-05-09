@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://b166kri0t125b"]
+[gd_scene load_steps=6 format=4 uid="uid://b166kri0t125b"]
 
 [ext_resource type="Script" uid="uid://8dns3g2eg8ct" path="res://Scripts/cafe_game_screen.gd" id="1_4hync"]
 [ext_resource type="TileSet" uid="uid://bbdk2kw5qsuvl" path="res://Assets/Tiles/cafe_tileset.tres" id="1_aygtp"]
 [ext_resource type="Script" uid="uid://52paqvya7vm" path="res://Scripts/grid_draw.gd" id="3_0hd55"]
 [ext_resource type="Script" uid="uid://bg45mnn3kevs7" path="res://Scripts/cafe_popup_options.gd" id="3_4wyqv"]
 [ext_resource type="AudioStream" uid="uid://clm416pxlbsle" path="res://Assets/Audio/Game Music.mp3" id="4_4wyqv"]
-[ext_resource type="PackedScene" uid="uid://0j31q5h1ra3y" path="res://Scenes/peasant_1.tscn" id="5_0ja1t"]
 
 [node name="Cafe Game" type="Node2D"]
 script = ExtResource("1_4hync")
@@ -63,12 +62,9 @@ tile_set = ExtResource("1_aygtp")
 rendering_quadrant_size = 32
 
 [node name="TopDownCamera" type="Camera2D" parent="."]
-position = Vector2(0, -67)
-zoom = Vector2(2, 2)
+position = Vector2(46, -79)
+zoom = Vector2(1.25, 1.5)
 editor_draw_limits = true
-
-[node name="Peasant1" parent="." instance=ExtResource("5_0ja1t")]
-position = Vector2(112, -208)
 
 [node name="Game Options Menu" type="PopupMenu" parent="."]
 oversampling_override = 1.0

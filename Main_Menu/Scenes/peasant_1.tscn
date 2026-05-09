@@ -255,7 +255,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk_Down",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -272,7 +272,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk_Left",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -289,7 +289,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk_Right",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -306,11 +306,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"Walk_Up",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mpp"]
-size = Vector2(17, 37)
+size = Vector2(14, 21)
 
 [node name="Peasant1" type="CharacterBody2D"]
 motion_mode = 1
@@ -318,11 +318,12 @@ script = ExtResource("1_8dytm")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ywo1y")
-animation = &"Idle_Front"
+animation = &"Walk_Down"
 autoplay = "Idle_Front"
 offset = Vector2(0, -5)
 
 [node name="Collision Box" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_y8mpp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

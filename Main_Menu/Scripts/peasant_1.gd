@@ -15,6 +15,8 @@ class_name Peasant_1
 @onready var chair_choice: Vector2i
 @onready var ordered: bool = false
 @onready var parent = get_parent()
+@onready var tilepath
+@onready var line_place
 
 #speed for test player movement function
 @export var speed: float = 75.0
@@ -24,6 +26,8 @@ class_name Peasant_1
 func _ready():
 	parent.order_made.connect(_order)
 	if get_parent().map_sig == true:
+		parent.line.append(get_instance_id())
+		line_place = len(parent.line - 1)
 		_pathfind(Globals.entrance, Globals.order)
 	else:
 		return
@@ -31,23 +35,28 @@ func _ready():
 #Function used to calculate NPC path given a start and end point
 func _pathfind(Start: Vector2i, End: Vector2i):
 	movepath = Globals.astar_map.get_point_path(Start, End)
+	tilepath = Globals.astar_map.get_id_path(Start, End)
 	movepath[1].x += 16
 	movepath[1].y += 16
 
 #Function to move NPCs to their seats after ordering
 func _order():
+	#After NPC finds a seat, make their seat available to chair list and despawn
+	in_line = false
 	if ordered == true && len(movepath) < 2:
 		parent.chair_list.append(chair_choice)
 		queue_free()
+	#NPC at front of line removes self from line list, despawns if no seats are available, or selects random seat
 	elif ordered == false && len(movepath) < 2:
+		parent.line.pop_front()
 		if parent.chair_list.size() == 0:
 			print("All seats are taken >:(")
+			queue_free()
 		else:
 			randomize()
 			var chair = randi() % parent.chair_list.size()
 			chair_choice = parent.chair_list[chair]
 			parent.chair_list.erase(chair_choice)
-			print(chair_choice)
 			ordered = true
 			_pathfind(Globals.order, chair_choice)
 	else:
@@ -160,17 +169,18 @@ func _play_animation(adirection : Vector2):
 func _physics_process(delta: float) -> void:
 	if movepath.is_empty():
 		return
+	#Different actions when in line
 	elif in_line == true:
 		_play_animation(direction)
-		if is_instance_valid(NPC_in_front) == false:
-			NPC_in_front = null
+		if peasant_1.global_position.distance_to(instance_from_id(parent.line[line_place - 1]).global_position) >= 50:
+			line_place -= 1
 			in_line = false
-		elif peasant_1.global_position.distance_to(NPC_in_front.global_position) >= 20:
-			in_line = false
+	#If NPC reaches end of path, stand still and signal in_line
 	elif len(movepath) < 2:
 		direction = Vector2(0.0, 0.0)
 		_play_animation(direction)
 		in_line = true
+	#NPC moves along path and handles collisions
 	else:
 		_movement(movepath[1])
 		velocity = direction * speed
@@ -178,12 +188,20 @@ func _physics_process(delta: float) -> void:
 		var collision = move_and_collide(velocity * delta)
 		if collision:
 			var NPC_ID = collision.get_collider_id()
-			NPC_ID = instance_from_id(NPC_ID)
-			last_bump = NPC_ID
-			if NPC_ID.in_line == true && ordered == false:
+			if parent.line.has(NPC_ID):
+				return
+			var NPC_instance = instance_from_id(NPC_ID)
+			last_bump = NPC_instance
+			if NPC_instance.in_line == true && ordered == false:
 				if NPC_in_front == null:
-					NPC_in_front = NPC_ID
+					NPC_in_front = NPC_instance
 				in_line = true
+			elif ordered == true:
+				Globals.astar_map.set_point_weight_scale(tilepath[1], 100)
+				Globals.astar_map.update()
+				_pathfind(tilepath[0], chair_choice)
+				Globals.astar_map.set_point_weight_scale(tilepath[1], 1)
+				Globals.astar_map.update()
 		if distance < 1.5:
 			movepath.pop_front()
 			if len(movepath) > 1:
