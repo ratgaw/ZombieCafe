@@ -15,7 +15,9 @@ extends Node2D
 @onready var chair_pos : Array
 @onready var map_sig : bool = false
 @onready var map_origin
-@onready var line
+@onready var line : Array
+@onready var orderpath
+@onready var cellpath
 signal order_made
 signal draw_grid
 
@@ -25,6 +27,10 @@ signal draw_grid
 func _ready():
 	draw_grid.connect($grid_draw._draw)
 	_gen_map()
+	orderpath = Globals.astar_map.get_point_path(Globals.entrance, Globals.order)
+	cellpath = Globals.astar_map.get_id_path(Globals.entrance, Globals.order)
+	for cell in cellpath:
+		Globals.astar_map.set_point_weight_scale(cell, 100)
 	map_sig = true
 	var ttimer = Timer.new()
 	add_child(ttimer)

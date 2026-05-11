@@ -310,7 +310,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mpp"]
-size = Vector2(14, 21)
+size = Vector2(16, 25)
 
 [node name="Peasant1" type="CharacterBody2D"]
 motion_mode = 1
@@ -318,12 +318,12 @@ script = ExtResource("1_8dytm")
 
 [node name="Animations" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ywo1y")
-animation = &"Walk_Down"
+animation = &"Idle_Front"
 autoplay = "Idle_Front"
 offset = Vector2(0, -5)
 
 [node name="Collision Box" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6.5)
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_y8mpp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
