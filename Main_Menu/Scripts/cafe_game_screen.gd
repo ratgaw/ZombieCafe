@@ -18,6 +18,8 @@ extends Node2D
 @onready var line : Array
 @onready var orderpath
 @onready var cellpath
+@onready var line_helement : int = -1
+signal line_move
 signal order_made
 signal draw_grid
 
@@ -117,3 +119,6 @@ func _gen_peasant():
 	var new_peasant = peasant1.instantiate()
 	new_peasant.position = Vector2(112, -208)
 	add_child(new_peasant)
+
+func _line():
+	return
