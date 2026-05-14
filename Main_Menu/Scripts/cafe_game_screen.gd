@@ -29,6 +29,7 @@ signal draw_grid
 #Currently spawns a new peasant NPC every 3 seconds
 func _ready():
 	draw_grid.connect($grid_draw._draw)
+	move_line.connect(_line_movement)
 	_gen_map()
 	orderpath = Globals.astar_map.get_point_path(Globals.entrance, Globals.order)
 	cellpath = Globals.astar_map.get_id_path(Globals.entrance, Globals.order)

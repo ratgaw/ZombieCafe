@@ -11,14 +11,13 @@ class_name Peasant_1
 @onready var chair_choice
 @onready var tilepath: Array
 @onready var last_animation: String = "Idle_Front"
-@onready var last_dir: int = 0
+@onready var last_dir: float = 0.0
 @onready var cur_dir
 @onready var waiting = false
 
 #On NPC generation set beginning movepath to the orderpath made by the map, adjusted for center of tiles
 func _ready():
 	parent.order_made.connect(_order)
-	parent.move_line.connect(parent._line_movement)
 	parent.line.append(get_instance_id())
 	movepath = parent.orderpath
 	movepath[1].x += 16
@@ -28,8 +27,8 @@ func _physics_process(delta: float):
 	#3 cases for NPCs waiting in the line - catching index overflow errors, NPCs turn to move, catch all no change
 	if waiting == true:
 		_play_animations(direction)
-		if parent.pos >= len(parent.line):
-			return
+		if parent.pos >= len(parent.line) or parent.line.front() == NPC_ID:
+			parent.pos = 0
 		if parent.line[parent.pos] == NPC_ID:
 			waiting = false
 		else:
@@ -37,11 +36,13 @@ func _physics_process(delta: float):
 	#Actions if NPC is in line, but not the front of the line and isn't yet waiting
 	elif NPC_ID in parent.line && len(movepath) > 1:
 		_movement()
+		_play_animations(direction)
 		velocity = speed * direction
 		var collision = move_and_collide(velocity * delta)
-		_play_animations(direction)
 		#2 Cases for collision - NPC is in line, not in line catch all
 		if collision:
+			direction = Vector2(0.0, 0.0)
+			_play_animations(direction)
 			var col_ID = collision.get_collider_id()
 			#If the NPC collides with the NPC in front of them in line, loop still until the line moves
 			if NPC_ID in parent.line && parent.line.find(NPC_ID) == (parent.line.find(col_ID) + 1):
@@ -56,9 +57,11 @@ func _physics_process(delta: float):
 	#Actions if NPC has reached the end of their movepath
 	elif len(movepath) < 2:
 		if NPC_ID in parent.line:
-			return
+			direction = Vector2(0.0, 0.0)
+			_play_animations(direction)
 		else:
-			return
+			direction = Vector2(0.0, 0.0)
+			_play_animations(direction)
 	#Catch all for NPC movement as they move through their movepath
 	else:
 		_movement()
@@ -111,7 +114,6 @@ func _order():
 			movepath[1].x += 16
 			movepath[1].y += 16
 			parent.line.remove_at(0)
-			print("Activated")
 			parent.move_line.emit()
 		else:
 			return
@@ -123,11 +125,12 @@ func _order():
 		parent.chair_list.append(chair_choice)
 		queue_free()
 
+#NPC movement animations based on direction and change of direction
 func _play_animations(adirection: Vector2):
 	if abs(adirection.x) > abs(adirection.y):
-		cur_dir = signi(adirection.x)
+		cur_dir = signf(adirection.x)
 	else:
-		cur_dir = signi(adirection.y) * 2
+		cur_dir = signf(adirection.y) * 2
 	#Animations if direction remains the same as the last call
 	if cur_dir == last_dir:
 		return
@@ -135,26 +138,26 @@ func _play_animations(adirection: Vector2):
 	elif cur_dir != last_dir:
 		animations.stop()
 		match cur_dir:
-			1:
+			1.0:
 				animations.play("Walk_Right")
-			-1:
+			-1.0:
 				animations.play("Walk_Left")
-			0:
+			0.0:
 				#For cases where NPC is now stopped, but was moving before
 				match last_dir:
-					1:
-						animations.play("Idle_Left")
-					-1:
+					1.0:
 						animations.play("Idle_Right")
-					2:
+					-1.0:
+						animations.play("Idle_Left")
+					2.0:
 						animations.play("Idle_Front")
-					-2:
+					-2.0:
 						animations.play("Idle_Back")
 					_:
 						animations.play("Idle_Front")
-			2:
+			2.0:
 				animations.play("Walk_Down")
-			-2:
+			-2.0:
 				animations.play("Walk_Up")
 		last_dir = cur_dir
 	#Catch all
