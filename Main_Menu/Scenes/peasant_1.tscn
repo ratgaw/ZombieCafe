@@ -310,7 +310,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y8mpp"]
-size = Vector2(16, 25)
+size = Vector2(19, 28)
 
 [node name="Peasant1" type="CharacterBody2D"]
 motion_mode = 1
@@ -323,7 +323,7 @@ autoplay = "Idle_Front"
 offset = Vector2(0, -5)
 
 [node name="Collision Box" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5.5)
+position = Vector2(0.5, 4)
 shape = SubResource("RectangleShape2D_y8mpp")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

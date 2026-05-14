@@ -18,9 +18,10 @@ extends Node2D
 @onready var line : Array
 @onready var orderpath
 @onready var cellpath
-@onready var line_helement : int = -1
-signal line_move
+@onready var pos = 0
+@onready var ppos
 signal order_made
+signal move_line
 signal draw_grid
 
 #Connects order and map genration signals to NPC on scene start, generates map for NPC pathfinding use
@@ -39,7 +40,7 @@ func _ready():
 	ttimer.wait_time = 3.0
 	ttimer.timeout.connect(_gen_peasant)
 	ttimer.start()
-	
+
 #Scans all layers to find floor tiles and all tiles marked as obstacles in other layers, returns floor pos list
 func getfloor_scanobs() -> Array:
 	used_tiles = floor_layer.get_used_cells()
@@ -120,5 +121,10 @@ func _gen_peasant():
 	new_peasant.position = Vector2(112, -208)
 	add_child(new_peasant)
 
-func _line():
-	return
+func _line_movement():
+	for line_pos in range(len(line)):
+		await get_tree().create_timer(0.5).timeout
+		if pos < len(line):
+			pos = line_pos
+		else:
+			return
