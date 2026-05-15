@@ -8,6 +8,7 @@ extends Node2D
 @onready var wall_ornament_layer: TileMapLayer = $"Wall Ornament Layer"
 @onready var ceiling_layer: TileMapLayer = $"Ceiling Layer"
 @onready var peasant1 = preload("res://Scenes/peasant_1.tscn")
+@onready var zombie1 = preload("res://Scenes/zombie_1.tscn")
 @onready var obs_list : Array
 @onready var used_tiles : Array
 @onready var used_pos : Array
@@ -19,7 +20,7 @@ extends Node2D
 @onready var orderpath
 @onready var cellpath
 @onready var pos = 0
-@onready var ppos
+@onready var new_NPC
 signal order_made
 signal move_line
 signal draw_grid
@@ -118,9 +119,14 @@ func _input(user_input: InputEvent) -> void:
 
 #Generates new peasant at the front entrance
 func _gen_peasant():
-	var new_peasant = peasant1.instantiate()
-	new_peasant.position = Vector2(112, -208)
-	add_child(new_peasant)
+	randomize()
+	var choice = randi() % 10
+	if choice < 4:
+		new_NPC = zombie1.instantiate()
+	else:
+		new_NPC = peasant1.instantiate()
+	new_NPC.position = Vector2(112, -208)
+	add_child(new_NPC)
 
 func _line_movement():
 	for line_pos in range(len(line)):
